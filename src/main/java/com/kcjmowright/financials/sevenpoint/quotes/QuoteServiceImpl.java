@@ -1,13 +1,13 @@
-package com.kcjmowright.financials.domain;
+package com.kcjmowright.financials.sevenpoint.quotes;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.kcjmowright.financials.domain.Quote;
-import com.kcjmowright.financials.domain.QuoteRepository;
-import com.kcjmowright.financials.domain.QuoteService;
+import com.kcjmowright.financials.sevenpoint.quotes.Quote;
+import com.kcjmowright.financials.sevenpoint.quotes.QuoteRepository;
+import com.kcjmowright.financials.sevenpoint.quotes.QuoteService;
 
 import lombok.RequiredArgsConstructor;
 

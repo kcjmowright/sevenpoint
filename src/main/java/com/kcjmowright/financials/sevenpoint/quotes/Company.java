@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.domain;
+package com.kcjmowright.financials.sevenpoint.quotes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.indicators;
+package com.kcjmowright.financials.sevenpoint.indicators;
 
 import static com.kcjmowright.financials.math.BigDecimalAverage.average;
 
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kcjmowright.financials.domain.Quote;
+import com.kcjmowright.financials.sevenpoint.quotes.Quote;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

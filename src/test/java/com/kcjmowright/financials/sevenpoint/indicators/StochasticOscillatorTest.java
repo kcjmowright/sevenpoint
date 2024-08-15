@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.indicators;
+package com.kcjmowright.financials.sevenpoint.indicators;
 
 import static java.util.Objects.nonNull;
 
@@ -19,7 +19,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.kcjmowright.financials.config.DateTimeConfig;
-import com.kcjmowright.financials.domain.Quote;
+import com.kcjmowright.financials.sevenpoint.quotes.Quote;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;

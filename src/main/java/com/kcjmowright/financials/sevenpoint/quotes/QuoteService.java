@@ -1,9 +1,9 @@
-package com.kcjmowright.financials.domain;
+package com.kcjmowright.financials.sevenpoint.quotes;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.kcjmowright.financials.domain.Quote;
+import com.kcjmowright.financials.sevenpoint.quotes.Quote;
 
 public interface QuoteService {
 

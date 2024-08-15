@@ -1,4 +1,4 @@
-package com.example.financials.listeners;
+package com.example.financials.sevenpoint.listeners;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
