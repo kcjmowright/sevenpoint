@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.sevenpoint.quotes;
+package com.kcjmowright.financials.sevenpoint.company;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,8 +18,11 @@ import lombok.Setter;
 @Table(name = "company")
 public class Company {
     @Id
-    @Column(name = "ticker", nullable = false)
-    private String ticker;
+    @Column(name = "symbol", nullable = false)
+    private String symbol;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "name")
     private String name;
@@ -32,4 +35,9 @@ public class Company {
 
     @Column(name = "exchange")
     private String exchange;
+
+    public String toString() {
+        return "Company { symbol=%s, name=%s, description=%s, sector=%s, industry=%s, exchange=%s}"
+            .formatted(symbol, name, description, sector, industry, exchange);
+    }
 }

@@ -1,6 +1,7 @@
 create table if not exists company (
-    ticker varchar(7) primary key,
+    symbol varchar(7) primary key,
     name text,
+    description text,
     sector text,
     industry text,
     exchange text
@@ -8,7 +9,7 @@ create table if not exists company (
     
 create table if not exists quote (
     id bigserial primary key,
-    ticker varchar(7),
+    symbol varchar(7),
     mark timestamp,
     open decimal,
     close decimal,
@@ -16,8 +17,8 @@ create table if not exists quote (
     low decimal,
     volume bigint,
     adjclose decimal,
-    constraint fk_company_ticker
-      foreign key(ticker) 
-	  references company(ticker)
+    constraint fk_company_symbol
+      foreign key(symbol) 
+	  references company(symbol)
 	  on delete cascade
 );

@@ -19,7 +19,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.kcjmowright.financials.config.DateTimeConfig;
-import com.kcjmowright.financials.sevenpoint.quotes.Quote;
+import com.kcjmowright.financials.sevenpoint.company.Quote;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;

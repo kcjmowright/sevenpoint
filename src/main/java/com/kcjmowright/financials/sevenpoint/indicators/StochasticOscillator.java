@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kcjmowright.financials.sevenpoint.quotes.Quote;
+import com.kcjmowright.financials.sevenpoint.company.Quote;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +37,6 @@ public class StochasticOscillator {
    */
   private List<Value> values = new ArrayList<>();
   private List<Quote> quotes;
-
   private int period;
 
   public StochasticOscillator(List<Quote> quotes, int period) {
@@ -55,7 +54,8 @@ public class StochasticOscillator {
   }
 
   static final BigDecimal k(BigDecimal close, BigDecimal min, BigDecimal max) {
-    return close.subtract(min).divide(max.subtract(min), 16, RoundingMode.HALF_EVEN).multiply(BigDecimal.valueOf(100.0)).setScale(8, RoundingMode.HALF_EVEN);
+    return close.subtract(min).divide(max.subtract(min), 16, RoundingMode.HALF_EVEN)
+      .multiply(BigDecimal.valueOf(100.0)).setScale(8, RoundingMode.HALF_EVEN);
   }
 
   static final BigDecimal d(List<Value> values) {

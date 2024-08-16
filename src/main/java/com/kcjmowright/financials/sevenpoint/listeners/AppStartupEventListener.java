@@ -12,7 +12,7 @@ public class AppStartupEventListener implements ApplicationListener<ApplicationR
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        log.info("Ready ---====>>>");
+        log.info("Ready >>---====>");
     }
 
 }

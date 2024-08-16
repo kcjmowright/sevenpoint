@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.sevenpoint.quotes;
+package com.kcjmowright.financials.sevenpoint.company;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,8 +26,8 @@ public class Quote {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "ticker", nullable = false)
-  private String ticker;
+  @Column(name = "symbol", nullable = false)
+  private String symbol;
 
   @Column(name = "mark", nullable = false)
   private LocalDateTime mark;
@@ -44,6 +44,14 @@ public class Quote {
   @Column(name = "close")
   private BigDecimal close;
 
+  @Column(name = "volume")
+  private Long volume;
+
   @Column(name = "adjclose")
   private BigDecimal adjClose;
+
+  public String toString() {
+    return "Quote {id=%s, symbol=%s, mark=%s, high=%s, low=%s, open=%s, close=%s, volume=%s, adjClose=%s}"
+      .formatted(id, symbol, mark, high, low, open, close, volume, adjClose);
+  }
 }
