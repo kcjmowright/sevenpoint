@@ -11,4 +11,6 @@ public interface QuoteService {
 
     void loadQuote(String symbol);
 
+    void deleteBySymbol(String symbol);
+
 }

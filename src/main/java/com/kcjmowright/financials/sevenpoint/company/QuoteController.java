@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,4 +44,9 @@ public class QuoteController {
         quoteService.loadQuote(symbol);
     }
 
+    @DeleteMapping("/{symbol}")
+    @Transactional
+    public void deleteQuoteBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+        quoteService.deleteBySymbol(symbol);
+    }
 }

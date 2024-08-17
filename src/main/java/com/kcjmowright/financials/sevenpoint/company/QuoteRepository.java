@@ -13,4 +13,5 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
     public List<Quote> findBySymbolAndMarkBetween(String symbol, LocalDateTime start, LocalDateTime end);
 
+    public void deleteBySymbol(String symbol);
 }

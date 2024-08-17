@@ -2,6 +2,7 @@ package com.kcjmowright.financials.sevenpoint.company;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -37,19 +38,27 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public void loadQuote(String symbol) {
+        log.info("Fetching quotes for {}", symbol);
         Map<String, Map<String, Map>> result = 
             client.getTimeSeriesDaily(symbol, this.apiKey, OutputSize.COMPACT, DataType.JSON);
+        log.info("Saving quotes for {}", symbol);
         result.get("Time Series (Daily)").entrySet().forEach(e -> {
             Map<String, String> value = e.getValue();
             Quote quote = new Quote();
-            quote.setMark(LocalDateTime.parse(e.getKey(), DateTimeFormatter.ISO_LOCAL_DATE));
+            quote.setSymbol(symbol);
+            quote.setMark(LocalDate.parse(e.getKey(), DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay());
             quote.setOpen(new BigDecimal(value.get("1. open")));
             quote.setHigh(new BigDecimal(value.get("2. high")));
             quote.setLow(new BigDecimal(value.get("3. low")));
             quote.setClose(new BigDecimal(value.get("4. close")));
             quote.setVolume(Long.valueOf(value.get("5. volume")));
-            log.info(quote.toString());
+            quoteRepository.save(quote);
         });
-        
+    }
+
+
+    @Override
+    public void deleteBySymbol(String symbol) {
+        quoteRepository.deleteBySymbol(symbol);
     }
 }

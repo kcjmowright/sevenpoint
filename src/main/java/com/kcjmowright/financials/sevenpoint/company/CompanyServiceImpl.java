@@ -28,6 +28,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     public void loadCompany(String symbol) {
+        log.info("Fetching company info for {}", symbol);
         Map<String, String> result = client.getCompanyOverview(symbol, this.apiKey);
         Company company = new Company();
         company.setSymbol(symbol);
@@ -36,6 +37,11 @@ public class CompanyServiceImpl implements CompanyService {
         company.setSector(result.get("Sector"));
         company.setIndustry(result.get("Industry"));
         company.setExchange(result.get("Exchange"));
-        log.info(company.toString());
+        log.info("Saving company info for {}", company);
+        companyRepository.save(company);
+    }
+
+    public void deleteBySymbol(String symbol) {
+        companyRepository.delete(companyRepository.getCompanyBySymbol(symbol));
     }
 }
