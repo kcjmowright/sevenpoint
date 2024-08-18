@@ -1,14 +1,11 @@
 package com.kcjmowright.financials.sevenpoint.indicators;
 
-import static java.util.Objects.nonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static com.kcjmowright.financials.util.Strings.emptyOrNull;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.math.BigDecimal;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +59,7 @@ public class StochasticOscillatorTest {
   void testShouldCalculate14DayStochasticOscillator() {
     var stochasticOscillator = new StochasticOscillator(quotes);
     assertEquals(expected.size() - stochasticOscillator.getPeriod() + 1, stochasticOscillator.getValues().size());
-    for (int idx = 0; idx < stochasticOscillator.getValues().size(); idx++ ) {
+    for (int idx = 0; idx < stochasticOscillator.getValues().size(); idx++) {
       var expectedValue = expected.get(idx + stochasticOscillator.getPeriod() - 1);
       var value = stochasticOscillator.getValues().get(idx);
       if (!emptyOrNull(expectedValue[8]) /* d */) {

@@ -3,17 +3,15 @@ package com.kcjmowright.financials.sevenpoint.company;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.CascadeType;
+import lombok.Getter;
+import lombok.Setter;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter
@@ -52,6 +50,6 @@ public class Quote {
 
   public String toString() {
     return "Quote {id=%s, symbol=%s, mark=%s, high=%s, low=%s, open=%s, close=%s, volume=%s, adjClose=%s}"
-      .formatted(id, symbol, mark, high, low, open, close, volume, adjClose);
+        .formatted(id, symbol, mark, high, low, open, close, volume, adjClose);
   }
 }

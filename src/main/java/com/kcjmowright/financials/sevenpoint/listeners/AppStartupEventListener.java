@@ -10,9 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AppStartupEventListener implements ApplicationListener<ApplicationReadyEvent> {
 
-    @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
-        log.info("Ready >>---====>");
-    }
-
+  @Override
+  public void onApplicationEvent(ApplicationReadyEvent event) {
+    log.info("Ready >>---====>");
+  }
 }

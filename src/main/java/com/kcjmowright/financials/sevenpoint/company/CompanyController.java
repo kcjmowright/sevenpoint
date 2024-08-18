@@ -5,12 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/company")
@@ -18,21 +16,20 @@ import lombok.RequiredArgsConstructor;
 @Slf4j
 public class CompanyController {
 
-    private final CompanyService companyService;
+  private final CompanyService companyService;
 
-    @GetMapping("/{symbol}")
-    public Company getCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
-        return companyService.getCompanyBySymbol(symbol);
-    }
+  @GetMapping("/{symbol}")
+  public Company getCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+    return companyService.getCompanyBySymbol(symbol);
+  }
 
-    @PutMapping("/{symbol}")
-    public void putCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
-        companyService.loadCompany(symbol);
-    }
+  @PutMapping("/{symbol}")
+  public void putCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+    companyService.loadCompany(symbol);
+  }
 
-    @DeleteMapping("/{symbol}")
-    public void deleteCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
-        companyService.deleteBySymbol(symbol);
-    }
-    
+  @DeleteMapping("/{symbol}")
+  public void deleteCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+    companyService.deleteBySymbol(symbol);
+  }
 }

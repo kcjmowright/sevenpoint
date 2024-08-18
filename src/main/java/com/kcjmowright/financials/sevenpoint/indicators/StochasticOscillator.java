@@ -1,9 +1,9 @@
 package com.kcjmowright.financials.sevenpoint.indicators;
 
+import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
 import static com.kcjmowright.financials.math.BigDecimalAverage.average;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,10 @@ import lombok.Getter;
 
 /**
  * k = (Most Recent Price - Period Low) / (Period High - Period Low) * 100.0
- *
+ * <p>
  * Where:
- *  k = the current calculated value.
- *  d = 3 - period simple moving average of k.
+ * k = the current calculated value.
+ * d = 3 - period simple moving average of k.
  */
 @Getter
 public class StochasticOscillator {
@@ -39,6 +39,9 @@ public class StochasticOscillator {
   private List<Quote> quotes;
   private int period;
 
+  private static final BigDecimal ONE_HUNDRED = new BigDecimal(100.0, MATH_CONTEXT);
+  private static final int DEFAULT_PERIOD = 14;
+
   public StochasticOscillator(List<Quote> quotes, int period) {
     this.quotes = quotes;
     this.period = period;
@@ -46,7 +49,7 @@ public class StochasticOscillator {
   }
 
   public StochasticOscillator(List<Quote> quotes) {
-    this(quotes, 14);
+    this(quotes, DEFAULT_PERIOD);
   }
 
   public StochasticOscillator() {
@@ -54,8 +57,7 @@ public class StochasticOscillator {
   }
 
   static final BigDecimal k(BigDecimal close, BigDecimal min, BigDecimal max) {
-    return close.subtract(min).divide(max.subtract(min), 16, RoundingMode.HALF_EVEN)
-      .multiply(BigDecimal.valueOf(100.0)).setScale(8, RoundingMode.HALF_EVEN);
+    return close.subtract(min).divide(max.subtract(min), MATH_CONTEXT).multiply(ONE_HUNDRED, MATH_CONTEXT);
   }
 
   static final BigDecimal d(List<Value> values) {
@@ -66,16 +68,12 @@ public class StochasticOscillator {
    * Calculates k and d values for `this.quotes`.
    */
   void calculate() {
-    if(this.period <= this.quotes.size()) {
-      for(int idx = this.period; idx <= this.quotes.size(); idx++) {
+    if (this.period <= this.quotes.size()) {
+      for (int idx = this.period; idx <= this.quotes.size(); idx++) {
         List<Quote> slice = this.quotes.subList(idx - this.period, idx);
         BigDecimal[] minMax = this.calculateMinMax(slice);
         Quote quote = slice.getLast();
-        Value value = new Value(
-            quote.getMark(),
-            k(quote.getClose(), minMax[0], minMax[1]),
-            null
-        );
+        Value value = new Value(quote.getMark(), k(quote.getClose(), minMax[0], minMax[1]), null);
 
         this.values.add(value);
         if (this.values.size() >= 3) {
@@ -92,14 +90,10 @@ public class StochasticOscillator {
    */
   public void addQuote(Quote quote) {
     this.quotes.add(quote);
-    if(this.period <= this.quotes.size()) {
+    if (this.period <= this.quotes.size()) {
       List<Quote> slice = this.quotes.subList(this.quotes.size() - this.period, this.quotes.size());
       BigDecimal[] minMax = calculateMinMax(slice);
-      Value value = new Value(
-          quote.getMark(),
-          k(quote.getClose(), minMax[0], minMax[1]),
-          null
-      );
+      Value value = new Value(quote.getMark(), k(quote.getClose(), minMax[0], minMax[1]), null);
 
       this.values.add(value);
       if (this.values.size() >= 3) {
@@ -109,7 +103,6 @@ public class StochasticOscillator {
   }
 
   /**
-   *
    * @param quotes a range of quotes.
    * @returns BigDecimal[] the min and max of the given quotes.
    */
@@ -124,7 +117,6 @@ public class StochasticOscillator {
         min = quote.getLow();
       }
     }
-    return new BigDecimal[]{ min, max };
+    return new BigDecimal[] {min, max};
   }
-
 }

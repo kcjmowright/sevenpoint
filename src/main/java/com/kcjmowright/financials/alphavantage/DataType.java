@@ -1,17 +1,17 @@
 package com.kcjmowright.financials.alphavantage;
 
 public enum DataType {
-    JSON("json"),
+  JSON("json"),
 
-    CSV("csv");
+  CSV("csv");
 
-    private String label;
+  private String label;
 
-    DataType(String label) {
-        this.label = label;
-    }
+  DataType(String label) {
+    this.label = label;
+  }
 
-    public String getLabel() {
-        return this.label;
-    }
+  public String getLabel() {
+    return this.label;
+  }
 }
