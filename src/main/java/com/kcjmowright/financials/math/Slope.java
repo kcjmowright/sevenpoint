@@ -8,9 +8,9 @@ public class Slope {
 
   /**
    *
-   * @param rise
-   * @param run
-   * @return
+   * @param rise the length of the rise, height, or Y axis.
+   * @param run the length of the run, width, or X axis.
+   * @return the slope
    */
   public static BigDecimal slope(BigDecimal rise, BigDecimal run) {
     if (rise == null || run == null) {

@@ -15,18 +15,18 @@ import lombok.Data;
 import lombok.Getter;
 
 /**
- * k = (Most Recent Price - Period Low) / (Period High - Period Low) * 100.0
+ * <code>k = (Most Recent Price - Period Low) / (Period High - Period Low) * 100.0</code>
  * <p>
- * Where:
- * k = the current calculated value.
- * d = 3 - period simple moving average of k.
+ * Where:<ul>
+ * <li>k = the current calculated value.
+ * <li>d = 3 - period simple moving average of k.
  */
 @Getter
 public class StochasticOscillator {
 
   @Data
   @AllArgsConstructor
-  public class Value {
+  public static class Value {
     LocalDateTime date;
     BigDecimal k;
     BigDecimal d;
@@ -35,11 +35,11 @@ public class StochasticOscillator {
   /**
    * The calculated values.
    */
-  private List<Value> values = new ArrayList<>();
-  private List<Quote> quotes;
-  private int period;
+  private final List<Value> values = new ArrayList<>();
+  private final List<Quote> quotes;
+  private final int period;
 
-  private static final BigDecimal ONE_HUNDRED = new BigDecimal(100.0, MATH_CONTEXT);
+  private static final BigDecimal ONE_HUNDRED = new BigDecimal("100.0", MATH_CONTEXT);
   private static final int DEFAULT_PERIOD = 14;
 
   public StochasticOscillator(List<Quote> quotes, int period) {
@@ -56,11 +56,11 @@ public class StochasticOscillator {
     this(new ArrayList<>());
   }
 
-  static final BigDecimal k(BigDecimal close, BigDecimal min, BigDecimal max) {
+  static BigDecimal k(BigDecimal close, BigDecimal min, BigDecimal max) {
     return close.subtract(min).divide(max.subtract(min), MATH_CONTEXT).multiply(ONE_HUNDRED, MATH_CONTEXT);
   }
 
-  static final BigDecimal d(List<Value> values) {
+  static BigDecimal d(List<Value> values) {
     return average(values.subList(values.size() - 3, values.size()).stream().map(Value::getK).toList());
   }
 
@@ -104,7 +104,7 @@ public class StochasticOscillator {
 
   /**
    * @param quotes a range of quotes.
-   * @returns BigDecimal[] the min and max of the given quotes.
+   * @return BigDecimal[] the min and max of the given quotes.
    */
   private BigDecimal[] calculateMinMax(List<Quote> quotes) {
     BigDecimal max = null;

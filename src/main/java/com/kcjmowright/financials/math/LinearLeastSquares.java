@@ -15,25 +15,25 @@ import lombok.Data;
 
 public class LinearLeastSquares {
 
-  @Data
-  static class Result {
-    private final BigDecimal coefficientOfDeterminationR2;
-    private final BigDecimal correlationR;
-    private final Line line;
-    private final BigDecimal sse;
-    private final BigDecimal ssr;
-    private final BigDecimal sst;
-    private final BigDecimal stdErrorOfEstimate;
-    private final BigDecimal sumX;
-    private final BigDecimal sumY;
-  }
+  // @formatter:off
+  public record Result(
+    BigDecimal coefficientOfDeterminationR2,
+    BigDecimal correlationR,
+    Line line,
+    BigDecimal sse,
+    BigDecimal ssr,
+    BigDecimal sst,
+    BigDecimal stdErrorOfEstimate,
+    BigDecimal sumX,
+    BigDecimal sumY) { }
+  // @formatter:on
 
   /**
    * Linear Regression
    *
-   * @see http://mathworld.wolfram.com/LeastSquaresFitting.html
+   * @see <a href="http://mathworld.wolfram.com/LeastSquaresFitting.html">Least Squares Fitting</a>
    * @param points the x & y values.
-   * @return the {@code Result} which includes the regression line and the meta data of the calculation.
+   * @return the {@code Result} which includes the regression line and the metadata of the calculation.
    */
   public static Result linearLeastSquares(List<Point> points) {
     if (isEmpty(points)) {
@@ -45,10 +45,10 @@ public class LinearLeastSquares {
   /**
    * Linear Regression
    *
-   * @see http://mathworld.wolfram.com/LeastSquaresFitting.html
+   * @see <a href="http://mathworld.wolfram.com/LeastSquaresFitting.html">Least Squares Fitting</a>
    * @param valuesX x values
    * @param valuesY y values
-   * @return the {@code Result} which includes the regression line and the meta data of the calculation.
+   * @return the {@code Result} which includes the regression line and the metadata of the calculation.
    */
   public static Result linearLeastSquares(List<BigDecimal> valuesX, List<BigDecimal> valuesY) {
     if (isEmpty(valuesX) || isEmpty(valuesY)) {
@@ -74,7 +74,7 @@ public class LinearLeastSquares {
     final BigDecimal yIntercept = avgY.subtract(slope.multiply(avgX));
     final BigDecimal correlationR = xy.divide(xx.multiply(yy).sqrt(MATH_CONTEXT), MATH_CONTEXT);
     final BigDecimal coefficientsOfDeterminationR2 = correlationR.pow(2, MATH_CONTEXT);
-    final BigDecimal sst = sum(IntStream.range(0, valuesY.size()).mapToObj(i -> valuesY.get(i).subtract(avgY).pow(2)).toList());
+    final BigDecimal sst = sum(valuesY.stream().map(bigDecimal -> bigDecimal.subtract(avgY).pow(2)).toList());
     final BigDecimal sse = sst.subtract(coefficientsOfDeterminationR2.multiply(sst, MATH_CONTEXT));
     final BigDecimal stdErrorOfEstimate = sse.divide(count.subtract(BigDecimal.TWO), MATH_CONTEXT).sqrt(MATH_CONTEXT);
     final BigDecimal ssr = sst.subtract(sse);

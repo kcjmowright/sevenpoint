@@ -30,10 +30,10 @@ public class LinearLeastSquaresTest {
         List.of(valueOf(23), valueOf(15), valueOf(20), valueOf(32), valueOf(17), valueOf(33), valueOf(21), valueOf(41), valueOf(20), valueOf(23), valueOf(46));
     var result = linearLeastSquares(x, y);
 
-    assertEquals(new BigDecimal("17.236363636363634"), result.getLine().getYIntercept());
-    assertEquals(new BigDecimal("1.536363636363636"), result.getLine().slope());
-    assertEquals(new BigDecimal("0.2533800567778567"), result.getCoefficientOfDeterminationR2());
-    assertEquals(new BigDecimal("9.220037467878908"), result.getStdErrorOfEstimate());
+    assertEquals(new BigDecimal("17.236363636363634"), result.line().getYIntercept());
+    assertEquals(new BigDecimal("1.536363636363636"), result.line().slope());
+    assertEquals(new BigDecimal("0.2533800567778567"), result.coefficientOfDeterminationR2());
+    assertEquals(new BigDecimal("9.220037467878908"), result.stdErrorOfEstimate());
   }
 
   @Test
@@ -42,9 +42,9 @@ public class LinearLeastSquaresTest {
         new Point(8, 41), new Point(9, 20), new Point(10, 23), new Point(11, 46));
     var result = linearLeastSquares(points);
 
-    assertEquals(new BigDecimal("17.2363636363636340"), result.getLine().getYIntercept());
-    assertEquals(new BigDecimal("1.536363636363636"), result.getLine().slope());
-    assertEquals(new BigDecimal("0.2533800567778567"), result.getCoefficientOfDeterminationR2());
-    assertEquals(new BigDecimal("9.220037467878908"), result.getStdErrorOfEstimate());
+    assertEquals(new BigDecimal("17.2363636363636340"), result.line().getYIntercept());
+    assertEquals(new BigDecimal("1.536363636363636"), result.line().slope());
+    assertEquals(new BigDecimal("0.2533800567778567"), result.coefficientOfDeterminationR2());
+    assertEquals(new BigDecimal("9.220037467878908"), result.stdErrorOfEstimate());
   }
 }

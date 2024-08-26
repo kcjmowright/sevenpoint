@@ -54,7 +54,7 @@ public class Line {
   }
 
   /**
-   * Compares this line to the given line and determines if the have the same slope.
+   * Compares this line to the given line and determines if the slopes are equal.
    * @param line the other line.
    * @return true if the lines are parallel.
    */

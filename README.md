@@ -34,6 +34,7 @@ createdb --username postgres -E UTF-8 -T template0 --no-password sevenpoint
 ## Market Data APIs
 
 * https://www.alphavantage.co/documentation/  - Free API, just have to apply for an API key.  Sign-up at https://www.alphavantage.co/support/#api-key
+* https://developer.schwab.com/
 * https://sws-gateway.schwab.com/ui/host/ - Charles Schwab investor API.
 
 ## Market Data

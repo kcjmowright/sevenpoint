@@ -15,32 +15,32 @@ import lombok.Data;
 import lombok.Getter;
 
 /**
- * https://www.investopedia.com/terms/c/commoditychannelindex.asp
+ * <a href="https://www.investopedia.com/terms/c/commoditychannelindex.asp">Commodity Channel Index</a>
  */
 @Getter
 public class CommodityChannelIndex {
 
   @Data
   @AllArgsConstructor
-  public class Value {
+  public static class Value {
     LocalDateTime date;
     BigDecimal cci;
   }
 
-  private int period;
-  private BigDecimal coefficient;
-  private List<Quote> quotes;
-  private List<Value> values;
+  private final int period;
+  private final BigDecimal coefficient;
+  private final List<Quote> quotes;
+  private final List<Value> values;
 
-  private static final BigDecimal THREE = new BigDecimal(3.0, MATH_CONTEXT);
-  private static final BigDecimal DEFAULT_COEFFICIENT = new BigDecimal(0.15, MATH_CONTEXT);
+  private static final BigDecimal THREE = new BigDecimal("3.0", MATH_CONTEXT);
+  private static final BigDecimal DEFAULT_COEFFICIENT = new BigDecimal("0.15", MATH_CONTEXT);
   private static final int DEFAULT_PERIOD = 20;
 
   public CommodityChannelIndex(List<Quote> quotes, int period, BigDecimal coefficient) {
     this.quotes = quotes;
     this.period = period;
     this.coefficient = coefficient;
-    this.values = new ArrayList();
+    this.values = new ArrayList<>();
     calculateAll();
   }
 
