@@ -4,14 +4,11 @@ import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
 import static com.kcjmowright.financials.math.BigDecimalAverage.average;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -20,17 +17,10 @@ import lombok.Getter;
 @Getter
 public class CommodityChannelIndex {
 
-  @Data
-  @AllArgsConstructor
-  public static class Value {
-    LocalDateTime date;
-    BigDecimal cci;
-  }
-
   private final int period;
   private final BigDecimal coefficient;
   private final List<Quote> quotes;
-  private final List<Value> values;
+  private final List<IndicatorValue> values;
 
   private static final BigDecimal THREE = new BigDecimal("3.0", MATH_CONTEXT);
   private static final BigDecimal DEFAULT_COEFFICIENT = new BigDecimal("0.15", MATH_CONTEXT);
@@ -70,7 +60,7 @@ public class CommodityChannelIndex {
     List<BigDecimal> absDeviations = typicalPrices.stream().map(tp -> tp.subtract(movingAverage, MATH_CONTEXT).abs()).toList();
     BigDecimal meanDeviation = average(absDeviations);
     BigDecimal cci = typicalPrices.getLast().subtract(movingAverage, MATH_CONTEXT).divide(coefficient.multiply(meanDeviation, MATH_CONTEXT), MATH_CONTEXT);
-    Value value = new Value(slice.getLast().getMark(), cci);
+    IndicatorValue value = new IndicatorValue(slice.getLast().getTimestamp(), cci);
     values.add(value);
   }
 

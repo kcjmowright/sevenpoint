@@ -73,7 +73,7 @@ public class StochasticOscillator {
         List<Quote> slice = this.quotes.subList(idx - this.period, idx);
         BigDecimal[] minMax = this.calculateMinMax(slice);
         Quote quote = slice.getLast();
-        Value value = new Value(quote.getMark(), k(quote.getClose(), minMax[0], minMax[1]), null);
+        Value value = new Value(quote.getTimestamp(), k(quote.getClose(), minMax[0], minMax[1]), null);
 
         this.values.add(value);
         if (this.values.size() >= 3) {
@@ -93,7 +93,7 @@ public class StochasticOscillator {
     if (this.period <= this.quotes.size()) {
       List<Quote> slice = this.quotes.subList(this.quotes.size() - this.period, this.quotes.size());
       BigDecimal[] minMax = calculateMinMax(slice);
-      Value value = new Value(quote.getMark(), k(quote.getClose(), minMax[0], minMax[1]), null);
+      Value value = new Value(quote.getTimestamp(), k(quote.getClose(), minMax[0], minMax[1]), null);
 
       this.values.add(value);
       if (this.values.size() >= 3) {

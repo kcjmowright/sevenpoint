@@ -20,7 +20,8 @@ public class AlphavantageRestClient {
    * @param outputSize the optional {@code OutputSize}.  Default is COMPACT.
    * @param dataType   the optional {@code DataType}.  Default is JSON.
    */
-  public Map<String, Map<String, Map>> getTimeSeriesDaily(String symbol, String apiKey, OutputSize outputSize, DataType dataType) {
+  @SuppressWarnings("unchecked")
+  public Map<String, Map<String, Map<String, String>>> getTimeSeriesDaily(String symbol, String apiKey, OutputSize outputSize, DataType dataType) {
     OutputSize os = outputSize == null ? OutputSize.COMPACT : outputSize;
     DataType dt = dataType == null ? DataType.JSON : dataType;
     return client.get().uri("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apiKey}&outputsize={outputSize}&datatype" +
@@ -33,6 +34,7 @@ public class AlphavantageRestClient {
    * @param symbol ticker symbol.
    * @param apiKey the API key.
    */
+  @SuppressWarnings("unchecked")
   public Map<String, String> getCompanyOverview(String symbol, String apiKey) {
     return client.get().uri("https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={apiKey}", symbol, apiKey).retrieve().body(HashMap.class);
   }

@@ -13,12 +13,10 @@ public class BearishEngulfing implements  ICandlestickPattern {
 
   @Override
   public boolean analyze(List<Quote> quotes, BigDecimal slope) {
-    if (slope.compareTo(BigDecimal.ZERO) < 0) { // If slope is descending, this is not in an uptrend.
-      return false;
-    }
     int idx = quotes.size();
     final Quote last = quotes.get(--idx);
     final Quote nextToLast = quotes.get(--idx);
-    return last.getClose().compareTo(nextToLast.getOpen()) <= 0 && last.getOpen().compareTo(nextToLast.getClose()) > 0;
+    return last.getOpen().compareTo(nextToLast.getClose().max(nextToLast.getOpen())) > 0
+        && last.getClose().compareTo(nextToLast.getOpen().min(nextToLast.getClose())) < 0;
   }
 }

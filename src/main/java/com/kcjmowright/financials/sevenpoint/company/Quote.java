@@ -13,6 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Represents a stock or commodity quote.
+ */
 @Getter
 @Setter
 @Entity
@@ -27,8 +30,8 @@ public class Quote {
   @Column(name = "symbol", nullable = false)
   private String symbol;
 
-  @Column(name = "mark", nullable = false)
-  private LocalDateTime mark;
+  @Column(name = "timestamp", nullable = false)
+  private LocalDateTime timestamp;
 
   @Column(name = "high")
   private BigDecimal high;
@@ -50,6 +53,6 @@ public class Quote {
 
   public String toString() {
     return "Quote {id=%s, symbol=%s, mark=%s, high=%s, low=%s, open=%s, close=%s, volume=%s, adjClose=%s}"
-        .formatted(id, symbol, mark, high, low, open, close, volume, adjClose);
+        .formatted(id, symbol, timestamp, high, low, open, close, volume, adjClose);
   }
 }

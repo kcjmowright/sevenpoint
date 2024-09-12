@@ -2,13 +2,12 @@ package com.kcjmowright.financials.sevenpoint.patterns;
 
 import static java.util.stream.Collectors.toMap;
 
-import static org.springframework.util.CollectionUtils.isEmpty;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -35,6 +34,7 @@ public class CandlestickPatterns {
       new BullishEngulfing(),
       new Hammer(),
       new HangingMan(),
+      new InvertedHammer(),
       new ShootingStar(),
       new Doji(),
       new AbandonedBabyTop(),
@@ -46,6 +46,7 @@ public class CandlestickPatterns {
 
   public static final int DEFAULT_SHORT_PERIOD = 5;
   public static final int DEFAULT_LONG_PERIOD = 20;
+
   private final List<Quote> quotes;
   private final int shortPeriod;
   private final int longPeriod;
@@ -62,7 +63,7 @@ public class CandlestickPatterns {
 
   /**
    *
-   * @param quotes a collection of {@code Quote}s.
+   * @param quotes a list of {@code Quote}s assumed to be sorted by {@link Quote#getTimestamp} ascending.
    * @param shortPeriod the short period
    * @param longPeriod the long period
    * @throws IllegalArgumentException if the quotes size is less than the long period or the long period is shorter than the short period.
@@ -71,27 +72,24 @@ public class CandlestickPatterns {
     if (shortPeriod < 5 || longPeriod < shortPeriod) {
       throw new IllegalArgumentException("Short period is less than the minimum of 5 or long period is shorter than short period.");
     }
-    if (isEmpty(quotes) || quotes.size() < longPeriod) {
+    this.quotes = Objects.requireNonNull(quotes, "Expected a list of quotes");
+    if (quotes.size() < longPeriod) {
       throw new IllegalArgumentException("Quotes size is less than the long period, %d".formatted(longPeriod));
     }
-    this.quotes = quotes;
     this.shortPeriod = shortPeriod;
     this.longPeriod = longPeriod;
   }
 
   public Result analyze() {
     final int size = quotes.size();
-    if (size < longPeriod) {
-      throw new IllegalStateException("Quotes size, %d, is less than the long period, %d".formatted(size, longPeriod));
-    }
     final List<Quote> quoteSublist = size == longPeriod ? quotes : quotes.subList(size - longPeriod, size);
     final List<Point> points = quoteSublist.stream().flatMap(q -> {
-      var x = BigDecimal.valueOf(q.getMark().toEpochSecond(ZoneOffset.UTC));
+      var x = BigDecimal.valueOf(q.getTimestamp().toEpochSecond(ZoneOffset.UTC));
       return Stream.of(new Point(x, q.getOpen()), new Point(x, q.getClose()));
     }).toList();
     final Line shortLine = LinearLeastSquares.linearLeastSquares(points.subList(longPeriod - shortPeriod, longPeriod)).line();
     final BigDecimal shortSlope = shortLine.slope();
-    return new Result(quoteSublist.getLast().getMark(), patterns.stream()
+    return new Result(quoteSublist.getLast().getTimestamp(), patterns.stream()
         .collect(toMap(Function.identity(), p -> p.analyze(quoteSublist, shortSlope))).entrySet().stream()
         .filter(Map.Entry::getValue)
         .map(Map.Entry::getKey).collect(Collectors.toSet()));

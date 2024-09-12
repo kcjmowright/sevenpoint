@@ -19,7 +19,7 @@ public class ShootingStar implements ICandlestickPattern {
     final BigDecimal bodySize = quote.getClose().subtract(quote.getOpen()).abs();
     final BigDecimal wickSize = quote.getHigh().subtract(quote.getClose().max(quote.getOpen()));
     final BigDecimal legSize = quote.getClose().min(quote.getOpen()).subtract(quote.getLow());
-    return bodySize.multiply(BigDecimal.TWO).compareTo(legSize) >= 0
-        && wickSize.compareTo(legSize.divide(BigDecimal.TWO, MATH_CONTEXT)) <= 0;
+    return bodySize.compareTo(legSize.multiply(BigDecimal.TWO)) > 0
+        && wickSize.compareTo(bodySize.multiply(BigDecimal.TWO, MATH_CONTEXT)) > 0;
   }
 }

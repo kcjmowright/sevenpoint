@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,11 +31,11 @@ public class CandleStickPatternsTest {
     Resource dataResource = new ClassPathResource("daily_QQQ.csv");
     try (CSVReader csvReader = new CSVReader(new InputStreamReader(dataResource.getInputStream()))) {
       List<String[]> values = csvReader.readAll();
-      var data = values.subList(1, values.size()).reversed();
+      var data = values.subList(1, values.size());
       data.forEach(row -> {
         var quote = new Quote();
         quote.setSymbol("QQQ");
-        quote.setMark(toDate(row[0]));
+        quote.setTimestamp(toDate(row[0]));
         quote.setOpen(new BigDecimal(row[1]));
         quote.setHigh(new BigDecimal(row[2]));
         quote.setLow(new BigDecimal(row[3]));
@@ -43,6 +44,7 @@ public class CandleStickPatternsTest {
         quotes.add(quote);
       });
     }
+    quotes.sort(Comparator.comparing(Quote::getTimestamp)); // sort ascending
   }
 
   @Test

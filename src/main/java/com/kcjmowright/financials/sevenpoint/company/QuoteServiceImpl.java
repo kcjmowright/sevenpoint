@@ -24,25 +24,24 @@ public class QuoteServiceImpl implements QuoteService {
 
   private final QuoteRepository quoteRepository;
 
-  private AlphavantageRestClient client = new AlphavantageRestClient();
+  private final AlphavantageRestClient client = new AlphavantageRestClient();
   @Value("${ALPHAVANTAGE_KEY:null}")
   private String apiKey;
 
   @Override
   public List<Quote> getQuotesBySymbolAndDateRange(String symbol, LocalDateTime start, LocalDateTime end) {
-    return quoteRepository.findBySymbolAndMarkBetween(symbol, start, end);
+    return quoteRepository.findBySymbolAndTimestampBetween(symbol, start, end);
   }
 
   @Override
   public void loadQuote(String symbol) {
     log.info("Fetching quotes for {}", symbol);
-    Map<String, Map<String, Map>> result = client.getTimeSeriesDaily(symbol, this.apiKey, OutputSize.COMPACT, DataType.JSON);
+    Map<String, Map<String, Map<String, String>>> result = client.getTimeSeriesDaily(symbol, this.apiKey, OutputSize.COMPACT, DataType.JSON);
     log.info("Saving quotes for {}", symbol);
-    result.get("Time Series (Daily)").entrySet().forEach(e -> {
-      Map<String, String> value = e.getValue();
+    result.get("Time Series (Daily)").forEach((key, value) -> {
       Quote quote = new Quote();
       quote.setSymbol(symbol);
-      quote.setMark(LocalDate.parse(e.getKey(), DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay());
+      quote.setTimestamp(LocalDate.parse(key, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay());
       quote.setOpen(new BigDecimal(value.get("1. open")));
       quote.setHigh(new BigDecimal(value.get("2. high")));
       quote.setLow(new BigDecimal(value.get("3. low")));

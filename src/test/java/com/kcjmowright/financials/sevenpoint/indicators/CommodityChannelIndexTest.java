@@ -36,7 +36,7 @@ public class CommodityChannelIndexTest {
       data.forEach(row -> {
         var quote = new Quote();
         quote.setSymbol("foo");
-        quote.setMark(LocalDate.parse(row[0], DateTimeConfig.dateFormatter).atStartOfDay());
+        quote.setTimestamp(LocalDate.parse(row[0], DateTimeConfig.dateFormatter).atStartOfDay());
         quote.setHigh(new BigDecimal(row[1]));
         quote.setLow(new BigDecimal(row[2]));
         quote.setClose(new BigDecimal(row[3]));
@@ -50,7 +50,7 @@ public class CommodityChannelIndexTest {
     CommodityChannelIndex cci = new CommodityChannelIndex(quotes);
     List<BigDecimal> expected = data.stream().map(row -> row[7]).filter(not(Strings::emptyOrNull)).map(BigDecimal::new).toList();
     for (int i = 0; i < expected.size(); i++) {
-      assertEquals(expected.get(i), cci.getValues().get(i).getCci());
+      assertEquals(expected.get(i), cci.getValues().get(i).getValue());
     }
   }
 }

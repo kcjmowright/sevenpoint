@@ -6,11 +6,11 @@ create table if not exists company (
     industry text,
     exchange text
 );
-    
+
 create table if not exists quote (
     id bigserial primary key,
     symbol varchar(7) not null,
-    mark timestamp not null,
+    timestamp timestamp not null,
     open decimal,
     close decimal,
     high decimal,
@@ -18,8 +18,8 @@ create table if not exists quote (
     volume bigint,
     adjclose decimal,
     constraint fk_company_symbol
-      foreign key(symbol) 
+      foreign key(symbol)
 	  references company(symbol)
 	  on delete cascade,
-    constraint u_quote_mark unique(mark)
+    constraint u_quote_timestamp unique(timestamp)
 );

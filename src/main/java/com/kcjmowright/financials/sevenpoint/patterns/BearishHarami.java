@@ -16,7 +16,7 @@ public class BearishHarami implements ICandlestickPattern {
 
   @Override
   public boolean analyze(List<Quote> quotes, BigDecimal slope) {
-    if (slope.compareTo(BigDecimal.ZERO) <= 0) { // if in an downtrend then, this is not a bearish harami.
+    if (slope.compareTo(BigDecimal.ZERO) <= 0) { // if in a downtrend then, this is not a bearish harami.
       return false;
     }
     int idx = quotes.size();

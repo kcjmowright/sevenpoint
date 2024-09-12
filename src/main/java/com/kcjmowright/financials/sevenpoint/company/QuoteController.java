@@ -25,7 +25,7 @@ public class QuoteController {
   private final QuoteService quoteService;
 
   @GetMapping("/{symbol}")
-  public List<Quote> getQuoteBySymbolAndMarkBetween(@PathVariable(name = "symbol", required = true) String symbol, @DateTimeFormat(iso =
+  public List<Quote> getQuoteBySymbolAndMarkBetween(@PathVariable(name = "symbol") String symbol, @DateTimeFormat(iso =
       DateTimeFormat.ISO.DATE_TIME) @RequestParam(name = "start", required = false) LocalDateTime startInput, @DateTimeFormat(iso =
       DateTimeFormat.ISO.DATE_TIME) @RequestParam(name = "end", required = false) LocalDateTime endInput) {
 
@@ -35,13 +35,13 @@ public class QuoteController {
   }
 
   @PutMapping("/{symbol}")
-  public void putQuoteBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+  public void putQuoteBySymbol(@PathVariable(name = "symbol") String symbol) {
     quoteService.loadQuote(symbol);
   }
 
   @DeleteMapping("/{symbol}")
   @Transactional
-  public void deleteQuoteBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+  public void deleteQuoteBySymbol(@PathVariable(name = "symbol") String symbol) {
     quoteService.deleteBySymbol(symbol);
   }
 }

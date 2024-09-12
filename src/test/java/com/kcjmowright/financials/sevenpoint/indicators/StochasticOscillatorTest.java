@@ -36,7 +36,7 @@ public class StochasticOscillatorTest {
       expected.forEach(row -> {
         // log.info("{}", row);
         var quote = new Quote();
-        quote.setMark(LocalDate.parse(row[1], DateTimeConfig.dateFormatter).atStartOfDay());
+        quote.setTimestamp(LocalDate.parse(row[1], DateTimeConfig.dateFormatter).atStartOfDay());
         quote.setHigh(new BigDecimal(row[2]));
         quote.setLow(new BigDecimal(row[3]));
         if (!emptyOrNull(row[6])) {

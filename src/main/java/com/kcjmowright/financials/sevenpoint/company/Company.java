@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Represents a company or commodity that is publicly traded.
+ */
 @Getter
 @Setter
 @Entity

@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CompanyServiceImpl implements CompanyService {
 
   private final CompanyRepository companyRepository;
-  private AlphavantageRestClient client = new AlphavantageRestClient();
+  private final AlphavantageRestClient client = new AlphavantageRestClient();
   @Value("${ALPHAVANTAGE_KEY:null}")
   private String apiKey;
 

@@ -19,17 +19,17 @@ public class CompanyController {
   private final CompanyService companyService;
 
   @GetMapping("/{symbol}")
-  public Company getCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+  public Company getCompanyBySymbol(@PathVariable(name = "symbol") String symbol) {
     return companyService.getCompanyBySymbol(symbol);
   }
 
   @PutMapping("/{symbol}")
-  public void putCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+  public void putCompanyBySymbol(@PathVariable(name = "symbol") String symbol) {
     companyService.loadCompany(symbol);
   }
 
   @DeleteMapping("/{symbol}")
-  public void deleteCompanyBySymbol(@PathVariable(name = "symbol", required = true) String symbol) {
+  public void deleteCompanyBySymbol(@PathVariable(name = "symbol") String symbol) {
     companyService.deleteBySymbol(symbol);
   }
 }

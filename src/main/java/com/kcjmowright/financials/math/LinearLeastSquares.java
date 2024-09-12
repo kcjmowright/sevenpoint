@@ -11,8 +11,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import lombok.Data;
-
 public class LinearLeastSquares {
 
   // @formatter:off

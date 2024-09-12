@@ -1,17 +1,16 @@
 package com.kcjmowright.financials.alphavantage;
 
+import lombok.Getter;
+
+@Getter
 public enum DataType {
   JSON("json"),
 
   CSV("csv");
 
-  private String label;
+  private final String label;
 
   DataType(String label) {
     this.label = label;
-  }
-
-  public String getLabel() {
-    return this.label;
   }
 }

@@ -1,5 +1,8 @@
 package com.kcjmowright.financials.alphavantage;
 
+import lombok.Getter;
+
+@Getter
 public enum OutputSize {
   /**
    * The latest 100 data points.
@@ -11,13 +14,9 @@ public enum OutputSize {
    */
   FULL("full");
 
-  private String label;
+  private final String label;
 
   OutputSize(String label) {
     this.label = label;
-  }
-
-  public String getLabel() {
-    return this.label;
   }
 }
