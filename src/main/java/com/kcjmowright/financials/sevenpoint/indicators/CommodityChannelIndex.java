@@ -6,6 +6,7 @@ import static com.kcjmowright.financials.math.BigDecimalAverage.average;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 
@@ -27,11 +28,11 @@ public class CommodityChannelIndex {
   private static final int DEFAULT_PERIOD = 20;
 
   public CommodityChannelIndex(List<Quote> quotes, int period, BigDecimal coefficient) {
-    this.quotes = quotes;
+    this.quotes = Objects.requireNonNull(quotes, "Expected quotes");
     this.period = period;
     this.coefficient = coefficient;
     this.values = new ArrayList<>();
-    calculateAll();
+    calculate();
   }
 
   public CommodityChannelIndex(List<Quote> quotes) {
@@ -42,19 +43,19 @@ public class CommodityChannelIndex {
     this.quotes.add(quote);
     if (this.period <= this.quotes.size()) {
       int idx = this.quotes.size();
-      calculate(this.quotes.subList(idx - this.period, idx));
+      calculateSlice(this.quotes.subList(idx - this.period, idx));
     }
   }
 
-  void calculateAll() {
+  void calculate() {
     if (this.period <= this.quotes.size()) {
       for (int idx = this.period; idx <= this.quotes.size(); idx++) {
-        calculate(this.quotes.subList(idx - this.period, idx));
+        calculateSlice(this.quotes.subList(idx - this.period, idx));
       }
     }
   }
 
-  void calculate(List<Quote> slice) {
+  void calculateSlice(List<Quote> slice) {
     List<BigDecimal> typicalPrices = slice.stream().map(this::calculateTypicalPrice).toList();
     BigDecimal movingAverage = average(typicalPrices);
     List<BigDecimal> absDeviations = typicalPrices.stream().map(tp -> tp.subtract(movingAverage, MATH_CONTEXT).abs()).toList();

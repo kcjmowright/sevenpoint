@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 
@@ -43,7 +44,7 @@ public class StochasticOscillator {
   private static final int DEFAULT_PERIOD = 14;
 
   public StochasticOscillator(List<Quote> quotes, int period) {
-    this.quotes = quotes;
+    this.quotes = Objects.requireNonNull(quotes);
     this.period = period;
     calculate();
   }

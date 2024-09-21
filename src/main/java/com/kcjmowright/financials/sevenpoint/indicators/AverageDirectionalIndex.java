@@ -12,7 +12,7 @@ import com.kcjmowright.financials.sevenpoint.company.Quote;
 import lombok.Getter;
 
 /**
- * 
+ *
  * <ul>
  * <li><a href="https://www.investopedia.com/terms/a/adx.asp">Investopedia</a>
  * <li><a href="https://trendspider.com/learning-center/understanding-the-average-directional-index-adx/">Understanding the Average Directional Index</a>
@@ -34,6 +34,7 @@ public class AverageDirectionalIndex {
   public AverageDirectionalIndex(List<Quote> quotes, int period) {
     this.quotes = Objects.requireNonNull(quotes, "Expected quotes");
     this.period = period;
+    calculate();
   }
 
   void calculate() {

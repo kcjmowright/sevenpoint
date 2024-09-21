@@ -2,6 +2,40 @@
 
 An implementation of A.J. Monte's Seven Point Trading Checklist.
 
+## Seven Points
+
+### Type of Candle
+
+Bearish or bullish.
+
+### Volume
+
+Up or down compared to the trend.
+
+### Moving Average Divergence
+
+A wide diverage from the 20-day simple moving average.
+
+### Gaps
+
+Gap above or below the market.  Recently closed gaps.
+
+### Stochastics
+
+Overbought or oversold.
+Wide divergence from the k and d.
+
+### CCI
+
+Overbought or oversold.
+Buy or sell signal
+Cross above or below the zero line.
+
+### Role Reversal
+
+A bounce or breakout of the role reversal.
+Divergence above or below the role reversal.
+
 ## Spring Info
 
 Using configuration https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.3.2&packaging=jar&jvmVersion=22&groupId=com.example.financials&artifactId=sevenpoint&name=sevenpoint&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.financials.sevenpoint&dependencies=web,data-jpa,lombok,security,flyway,postgresql,spring-ai-vectordb-pgvector,devtools,actuator
