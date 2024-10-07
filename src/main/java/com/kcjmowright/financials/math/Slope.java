@@ -1,5 +1,7 @@
 package com.kcjmowright.financials.math;
 
+import static java.util.Objects.requireNonNull;
+
 import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
 
 import java.math.BigDecimal;
@@ -13,9 +15,8 @@ public class Slope {
    * @return the slope
    */
   public static BigDecimal slope(BigDecimal rise, BigDecimal run) {
-    if (rise == null || run == null) {
-      throw new IllegalArgumentException("Slope requires non null arguments");
-    }
+    requireNonNull(rise, "Missing rise argument");
+    requireNonNull(run, "Missing run argument");
     return rise.divide(run, MATH_CONTEXT);
   }
 
@@ -24,6 +25,8 @@ public class Slope {
   }
 
   public static BigDecimal slope(Point a, Point b) {
+    requireNonNull(a, "Missing point a argument");
+    requireNonNull(b, "Missing point b argument");
     return slope(b.getY().subtract(a.getY()), b.getX().subtract(a.getX()));
   }
 }
