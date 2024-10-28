@@ -20,8 +20,8 @@ import lombok.Getter;
 public class PriceGaps {
 
   private final List<Quote> quotes;
-  private final List<Gap> openedGaps = new ArrayList<>();
-  private final Map<LocalDateTime, Gap> closedGaps = new HashMap<>();
+  private final List<PriceGap> openedPriceGaps = new ArrayList<>();
+  private final Map<LocalDateTime, PriceGap> closedGaps = new HashMap<>();
 
   public PriceGaps(List<Quote> quotes) {
     this.quotes = List.copyOf(Objects.requireNonNull(quotes, "Expected quotes"));
@@ -32,29 +32,29 @@ public class PriceGaps {
     Quote last = null;
     for (Quote current: quotes) {
       if (last != null) {
-        openedGaps.stream()
-            .filter(gap -> (gap.getDirection() > 0 && current.getLow().compareTo(gap.getLow()) <= 0)
-                || (gap.getDirection() < 0 && current.getHigh().compareTo(gap.getHigh()) >= 0))
+        openedPriceGaps.stream()
+            .filter(priceGap -> (priceGap.getDirection() > 0 && current.getLow().compareTo(priceGap.getLow()) <= 0)
+                || (priceGap.getDirection() < 0 && current.getHigh().compareTo(priceGap.getHigh()) >= 0))
             .findFirst()
             .ifPresent(gap -> this.closeGap(current.getTimestamp(), gap));
-        findGap(last, current).ifPresent(openedGaps::add);
+        findGap(last, current).ifPresent(openedPriceGaps::add);
       }
       last = current;
     }
   }
 
-  private Optional<Gap> findGap(Quote last, Quote current) {
+  private Optional<PriceGap> findGap(Quote last, Quote current) {
     if (current.getLow().subtract(last.getHigh()).compareTo(BigDecimal.ZERO) > 0) { // Gap down
-      return Optional.of(new Gap(-1, current.getLow(), last.getHigh(), current.getTimestamp()));
+      return Optional.of(new PriceGap(-1, current.getLow(), last.getHigh(), current.getTimestamp()));
     }
     if (last.getLow().subtract(current.getHigh()).compareTo(BigDecimal.ZERO) > 0) { // Gap up
-      return Optional.of(new Gap(1, last.getLow(), current.getHigh(), current.getTimestamp()));
+      return Optional.of(new PriceGap(1, last.getLow(), current.getHigh(), current.getTimestamp()));
     }
     return Optional.empty();
   }
 
-  private void closeGap(LocalDateTime timestamp, Gap gap) {
-    closedGaps.put(timestamp, gap);
-    openedGaps.remove(gap);
+  private void closeGap(LocalDateTime timestamp, PriceGap priceGap) {
+    closedGaps.put(timestamp, priceGap);
+    openedPriceGaps.remove(priceGap);
   }
 }

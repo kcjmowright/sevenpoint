@@ -50,7 +50,7 @@ public class StochasticOscillatorTest {
   @Test
   void testShouldSetDefaultValues() {
     var stochasticOscillator = new StochasticOscillator();
-    assertEquals(List.of(), stochasticOscillator.getValues());
+    assertEquals(List.of(), stochasticOscillator.getStochasticValues());
     assertEquals(14, stochasticOscillator.getPeriod());
     assertEquals(List.of(), stochasticOscillator.getQuotes());
   }
@@ -58,10 +58,10 @@ public class StochasticOscillatorTest {
   @Test
   void testShouldCalculate14DayStochasticOscillator() {
     var stochasticOscillator = new StochasticOscillator(quotes);
-    assertEquals(expected.size() - stochasticOscillator.getPeriod() + 1, stochasticOscillator.getValues().size());
-    for (int idx = 0; idx < stochasticOscillator.getValues().size(); idx++) {
+    assertEquals(expected.size() - stochasticOscillator.getPeriod() + 1, stochasticOscillator.getStochasticValues().size());
+    for (int idx = 0; idx < stochasticOscillator.getStochasticValues().size(); idx++) {
       var expectedValue = expected.get(idx + stochasticOscillator.getPeriod() - 1);
-      var value = stochasticOscillator.getValues().get(idx);
+      var value = stochasticOscillator.getStochasticValues().get(idx);
       if (!emptyOrNull(expectedValue[8]) /* d */) {
         assertEquals(new BigDecimal(expectedValue[8]), value.getD());
       }

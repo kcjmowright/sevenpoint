@@ -4,15 +4,12 @@ import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
 import static com.kcjmowright.financials.math.BigDecimalAverage.average;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -25,18 +22,10 @@ import lombok.Getter;
 @Getter
 public class StochasticOscillator {
 
-  @Data
-  @AllArgsConstructor
-  public static class Value {
-    LocalDateTime date;
-    BigDecimal k;
-    BigDecimal d;
-  }
-
   /**
    * The calculated values.
    */
-  private final List<Value> values = new ArrayList<>();
+  private final List<StochasticValue> stochasticValues = new ArrayList<>();
   private final List<Quote> quotes;
   private final int period;
 
@@ -61,8 +50,8 @@ public class StochasticOscillator {
     return close.subtract(min).divide(max.subtract(min), MATH_CONTEXT).multiply(ONE_HUNDRED, MATH_CONTEXT);
   }
 
-  static BigDecimal d(List<Value> values) {
-    return average(values.subList(values.size() - 3, values.size()).stream().map(Value::getK).toList());
+  static BigDecimal d(List<StochasticValue> stochasticValues) {
+    return average(stochasticValues.subList(stochasticValues.size() - 3, stochasticValues.size()).stream().map(StochasticValue::getK).toList());
   }
 
   /**
@@ -74,11 +63,11 @@ public class StochasticOscillator {
         List<Quote> slice = this.quotes.subList(idx - this.period, idx);
         BigDecimal[] minMax = this.calculateMinMax(slice);
         Quote quote = slice.getLast();
-        Value value = new Value(quote.getTimestamp(), k(quote.getClose(), minMax[0], minMax[1]), null);
+        StochasticValue stochasticValue = new StochasticValue(quote.getTimestamp(), k(quote.getClose(), minMax[0], minMax[1]), null);
 
-        this.values.add(value);
-        if (this.values.size() >= 3) {
-          value.d = d(values);
+        this.stochasticValues.add(stochasticValue);
+        if (this.stochasticValues.size() >= 3) {
+          stochasticValue.d = d(stochasticValues);
         }
       }
     }
@@ -94,11 +83,11 @@ public class StochasticOscillator {
     if (this.period <= this.quotes.size()) {
       List<Quote> slice = this.quotes.subList(this.quotes.size() - this.period, this.quotes.size());
       BigDecimal[] minMax = calculateMinMax(slice);
-      Value value = new Value(quote.getTimestamp(), k(quote.getClose(), minMax[0], minMax[1]), null);
+      StochasticValue stochasticValue = new StochasticValue(quote.getTimestamp(), k(quote.getClose(), minMax[0], minMax[1]), null);
 
-      this.values.add(value);
-      if (this.values.size() >= 3) {
-        value.d = d(this.values);
+      this.stochasticValues.add(stochasticValue);
+      if (this.stochasticValues.size() >= 3) {
+        stochasticValue.d = d(this.stochasticValues);
       }
     }
   }

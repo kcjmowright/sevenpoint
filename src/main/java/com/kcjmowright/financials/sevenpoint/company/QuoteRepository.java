@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
-  List<Quote> findBySymbolAndTimestampBetween(String symbol, LocalDateTime start, LocalDateTime end);
+  List<Quote> findBySymbolAndTimestampBetweenOrderByTimestampAsc(String symbol, LocalDateTime start, LocalDateTime end);
 
   void deleteBySymbol(String symbol);
 }

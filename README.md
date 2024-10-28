@@ -50,7 +50,9 @@ createdb --username postgres -E UTF-8 -T template0 --no-password sevenpoint
 
 ### Environment Variables
 
-`ALPHAVANTAGE_KEY` - Alphavantage API key.  See https://www.alphavantage.co/support/#api-key
+`ALPHAVANTAGE_KEY` - Alphavantage API key.  Create a key by visiting https://www.alphavantage.co/support/#api-key
+
+
 
 ## Reference
 

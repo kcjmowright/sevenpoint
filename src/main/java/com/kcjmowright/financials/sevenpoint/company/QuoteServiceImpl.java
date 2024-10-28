@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class QuoteServiceImpl implements QuoteService {
 
   @Override
   public List<Quote> getQuotesBySymbolAndDateRange(String symbol, LocalDateTime start, LocalDateTime end) {
-    return quoteRepository.findBySymbolAndTimestampBetween(symbol, start, end);
+    return quoteRepository.findBySymbolAndTimestampBetweenOrderByTimestampAsc(symbol, start, end);
   }
 
   @Override
@@ -38,10 +39,12 @@ public class QuoteServiceImpl implements QuoteService {
     log.info("Fetching quotes for {}", symbol);
     Map<String, Map<String, Map<String, String>>> result = client.getTimeSeriesDaily(symbol, this.apiKey, OutputSize.COMPACT, DataType.JSON);
     log.info("Saving quotes for {}", symbol);
-    result.get("Time Series (Daily)").forEach((key, value) -> {
+    result.get("Time Series (Daily)").entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> {
+      String timestamp = e.getKey();
+      Map<String, String> value = e.getValue();
       Quote quote = new Quote();
       quote.setSymbol(symbol);
-      quote.setTimestamp(LocalDate.parse(key, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay());
+      quote.setTimestamp(LocalDate.parse(timestamp, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay());
       quote.setOpen(new BigDecimal(value.get("1. open")));
       quote.setHigh(new BigDecimal(value.get("2. high")));
       quote.setLow(new BigDecimal(value.get("3. low")));

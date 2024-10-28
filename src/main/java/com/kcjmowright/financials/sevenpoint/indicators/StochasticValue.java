@@ -4,13 +4,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @AllArgsConstructor
-public class Gap {
-  private int direction;
-  private BigDecimal high;
-  private BigDecimal low;
-  private LocalDateTime timestamp;
+public class StochasticValue {
+  LocalDateTime date;
+  BigDecimal k;
+  BigDecimal d;
 }

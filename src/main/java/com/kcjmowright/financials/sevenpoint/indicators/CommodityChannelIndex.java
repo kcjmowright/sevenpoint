@@ -24,8 +24,8 @@ public class CommodityChannelIndex {
   private final List<IndicatorValue> values;
 
   private static final BigDecimal THREE = new BigDecimal("3.0", MATH_CONTEXT);
-  private static final BigDecimal DEFAULT_COEFFICIENT = new BigDecimal("0.15", MATH_CONTEXT);
-  private static final int DEFAULT_PERIOD = 20;
+  public static final BigDecimal DEFAULT_COEFFICIENT = new BigDecimal("0.15", MATH_CONTEXT);
+  public static final int DEFAULT_PERIOD = 20;
 
   public CommodityChannelIndex(List<Quote> quotes, int period, BigDecimal coefficient) {
     this.quotes = Objects.requireNonNull(quotes, "Expected quotes");

@@ -13,6 +13,10 @@ public interface ICandlestickPattern {
    */
   int getDirection();
 
+  default String getName() {
+    return getClass().getSimpleName();
+  }
+
   /**
    * Analyzes the given quotes for the short and long periods and indicates whether the quotes fit the pattern.
    * @param quotes a collection of quotes.
