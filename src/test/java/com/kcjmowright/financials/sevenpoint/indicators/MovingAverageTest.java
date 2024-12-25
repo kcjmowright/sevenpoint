@@ -7,6 +7,7 @@ import static com.kcjmowright.financials.util.Strings.emptyOrNull;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.core.io.Resource;
 
 import com.kcjmowright.financials.config.DateTimeConfig;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
+import com.kcjmowright.financials.util.Dates;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +38,8 @@ public class MovingAverageTest {
       List<String[]> data = all.subList(1, all.size());
       data.forEach(row -> {
         var quote = new Quote();
-        var timestamp = LocalDate.parse(row[0], DateTimeConfig.dateFormatter).atStartOfDay();
         quote.setSymbol("foo");
+        LocalDateTime timestamp = Dates.toDate(row[0]);
         quote.setTimestamp(timestamp);
         quote.setOpen(new BigDecimal(row[1]));
         quote.setHigh(new BigDecimal(row[2]));

@@ -4,6 +4,7 @@ import static java.math.BigDecimal.valueOf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -52,10 +53,10 @@ public class LineTest {
     var line1 = new Line(3, 1, 5, 6);
     var line2 = new Line(3, 1, 5, 6);
     assertTrue(line1.isParallelTo(line2));
-    assertTrue(line1.equals(line2));
+    assertEquals(line1, line2);
 
     var line3 = new Line(4, 2, 6, 7);
     assertTrue(line1.isParallelTo(line3));
-    assertFalse(line1.equals(line3));
+    assertNotEquals(line1, line3);
   }
 }

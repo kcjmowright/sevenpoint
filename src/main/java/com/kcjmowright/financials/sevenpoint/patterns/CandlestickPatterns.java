@@ -13,10 +13,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.kcjmowright.financials.math.Line;
 import com.kcjmowright.financials.math.LinearLeastSquares;
 import com.kcjmowright.financials.math.Point;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
+import com.kcjmowright.financials.sevenpoint.indicators.Trend;
 
 import lombok.Getter;
 
@@ -30,17 +30,19 @@ import lombok.Getter;
 public class CandlestickPatterns {
 
   private static final List<ICandlestickPattern> patterns = List.of(
+      new AbandonedBabyBottom(),
+      new AbandonedBabyTop(),
       new BearishEngulfing(),
+      new BearishHarami(),
+      new BearishMarubozo(),
       new BullishEngulfing(),
+      new BullishHarami(),
+      new BullishMarubozo(),
+      new Doji(),
       new Hammer(),
       new HangingMan(),
       new InvertedHammer(),
       new ShootingStar(),
-      new Doji(),
-      new AbandonedBabyTop(),
-      new AbandonedBabyBottom(),
-      new BullishHarami(),
-      new BearishHarami(),
       new StaleGreenLight(),
       new StaleRedLight());
 
@@ -51,7 +53,14 @@ public class CandlestickPatterns {
   private final int shortPeriod;
   private final int longPeriod;
 
-  public record Result(LocalDateTime timestamp, Set<ICandlestickPattern> patterns) { }
+  // @formatter:off
+  public record Result(
+      LocalDateTime timestamp,
+      BigDecimal longPeriodSlope,
+      BigDecimal shortPeriodSlope,
+      BigDecimal twoPeriodSlope,
+      Set<ICandlestickPattern> patterns) { }
+  // @formatter:on
 
   /**
    *
@@ -70,7 +79,7 @@ public class CandlestickPatterns {
    */
   public CandlestickPatterns(List<Quote> quotes, int shortPeriod, int longPeriod) {
     if (shortPeriod < 5 || longPeriod < shortPeriod) {
-      throw new IllegalArgumentException("Short period is less than the minimum of 5 or long period is shorter than short period.");
+      throw new IllegalArgumentException("Short period is less than the minimum of %d or long period is shorter than short period.".formatted(DEFAULT_SHORT_PERIOD));
     }
     this.quotes = Objects.requireNonNull(quotes, "Expected a list of quotes");
     if (quotes.size() < longPeriod) {
@@ -81,17 +90,16 @@ public class CandlestickPatterns {
   }
 
   public Result analyze() {
-    final int size = quotes.size();
-    final List<Quote> quoteSublist = size == longPeriod ? quotes : quotes.subList(size - longPeriod, size);
-    final List<Point> points = quoteSublist.stream().flatMap(q -> {
-      var x = BigDecimal.valueOf(q.getTimestamp().toEpochSecond(ZoneOffset.UTC));
-      return Stream.of(new Point(x, q.getOpen()), new Point(x, q.getClose()));
-    }).toList();
-    final Line shortLine = LinearLeastSquares.linearLeastSquares(points.subList(longPeriod - shortPeriod, longPeriod)).line();
-    final BigDecimal shortSlope = shortLine.slope();
-    return new Result(quoteSublist.getLast().getTimestamp(), patterns.stream()
-        .collect(toMap(Function.identity(), p -> p.analyze(quoteSublist, shortSlope))).entrySet().stream()
+    final List<Quote> longPeriodSublist = quotes.size() <= longPeriod ? quotes
+        : quotes.subList(quotes.size() - longPeriod, quotes.size());
+    final BigDecimal longSlope = Trend.findSlope(longPeriodSublist, longPeriod);
+    final List<Quote> shortPeriodSublist = longPeriodSublist.subList(longPeriodSublist.size() - shortPeriod, longPeriodSublist.size());
+    final BigDecimal shortSlope = Trend.findSlope(shortPeriodSublist, shortPeriod);
+    final BigDecimal twoPeriodSlope = Trend.findSlope(shortPeriodSublist, 2);
+    final Set<ICandlestickPattern> candleSticks = patterns.stream()
+        .collect(toMap(Function.identity(), p -> p.analyze(shortPeriodSublist, shortSlope))).entrySet().stream()
         .filter(Map.Entry::getValue)
-        .map(Map.Entry::getKey).collect(Collectors.toSet()));
+        .map(Map.Entry::getKey).collect(Collectors.toSet());
+    return new Result(longPeriodSublist.getLast().getTimestamp(), longSlope, shortSlope, twoPeriodSlope, candleSticks);
   }
 }

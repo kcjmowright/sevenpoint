@@ -7,6 +7,13 @@ import java.util.List;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 
+/**
+ * An Abandoned Baby Top is a three candle reversal pattern at the end of an uptrend.
+ * <p>
+ * The first candle is a large green candle.
+ * The second candle is a Doji above the close of the first candle.
+ * The third candle is a huge red candle below the second candle.
+ */
 public class AbandonedBabyTop extends Doji implements ICandlestickPattern {
   @Override
   public int getDirection() {

@@ -8,9 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@Setter
 public class AverageIndicatorValue extends IndicatorValue {
 
-  @Setter
   private BigDecimal average;
 
   public AverageIndicatorValue(){

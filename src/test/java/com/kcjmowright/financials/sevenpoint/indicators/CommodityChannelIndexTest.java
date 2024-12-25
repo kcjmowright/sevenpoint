@@ -17,6 +17,7 @@ import org.springframework.core.io.Resource;
 
 import com.kcjmowright.financials.config.DateTimeConfig;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
+import com.kcjmowright.financials.util.Dates;
 import com.kcjmowright.financials.util.Strings;
 import com.opencsv.CSVReader;
 
@@ -36,7 +37,7 @@ public class CommodityChannelIndexTest {
       data.forEach(row -> {
         var quote = new Quote();
         quote.setSymbol("foo");
-        quote.setTimestamp(LocalDate.parse(row[0], DateTimeConfig.dateFormatter).atStartOfDay());
+        quote.setTimestamp(Dates.toDate(row[0]));
         quote.setHigh(new BigDecimal(row[1]));
         quote.setLow(new BigDecimal(row[2]));
         quote.setClose(new BigDecimal(row[3]));

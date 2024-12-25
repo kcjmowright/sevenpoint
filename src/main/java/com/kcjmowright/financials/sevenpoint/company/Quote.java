@@ -3,7 +3,9 @@ package com.kcjmowright.financials.sevenpoint.company;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.Column;
@@ -18,6 +20,8 @@ import jakarta.persistence.Table;
  */
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "quote")
 public class Quote {

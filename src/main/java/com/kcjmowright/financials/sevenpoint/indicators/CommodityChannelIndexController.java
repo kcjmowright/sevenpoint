@@ -35,7 +35,7 @@ public class CommodityChannelIndexController {
     LocalDateTime end = endInput == null ? LocalDateTime.now() : endInput;
     LocalDateTime start = startInput == null ? end.minusDays(60L) : startInput;
     List<Quote> quotes = quoteService.getQuotesBySymbolAndDateRange(symbol, start, end);
-    Integer period = isNull(periodInput) ? CommodityChannelIndex.DEFAULT_PERIOD : periodInput;
+    int period = isNull(periodInput) ? CommodityChannelIndex.DEFAULT_PERIOD : periodInput;
     BigDecimal coefficient = isNull(coefficientInput) ? CommodityChannelIndex.DEFAULT_COEFFICIENT : coefficientInput;
     return new CommodityChannelIndex(quotes, period, coefficient).getValues();
   }

@@ -39,7 +39,7 @@ public class AverageDirectionalIndex {
 
   void calculate() {
     int len = quotes.size();
-    values.add(new IndicatorValue(quotes.get(0).getTimestamp(), null));
+    values.add(new IndicatorValue(quotes.getFirst().getTimestamp(), null));
     for (int idx = 1; idx < len; idx++) {
       final Quote current = quotes.get(idx);
       final Quote previous = quotes.get(idx - 1);

@@ -14,6 +14,7 @@ public class SlopeTest {
   void testSlope() {
     BigDecimal actual = slope(new Point(3, 1), new Point(5, 6));
     assertEquals(BigDecimal.valueOf(2.5), actual);
+
     actual = slope(new Point(3, 2), new Point(5, 8));
     assertEquals(BigDecimal.valueOf(3), actual);
   }

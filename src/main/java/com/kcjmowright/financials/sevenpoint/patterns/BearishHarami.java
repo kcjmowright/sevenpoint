@@ -6,7 +6,9 @@ import java.util.List;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 
 /**
- *
+ * A potential reversal in an uptrend indicated by a small decrease in price
+ * that can be contained within the given upward candle from the past day.
+ * Harami is Japanese for pregnant.
  */
 public class BearishHarami implements ICandlestickPattern {
   @Override
