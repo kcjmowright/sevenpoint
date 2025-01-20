@@ -5,19 +5,13 @@ import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class StochasticValue {
-  LocalDateTime date;
-
-  /**
-   * Current value.
-   */
-  BigDecimal k;
-
-  /**
-   * THe 3 period moving average of k.
-   */
-  BigDecimal d;
+@NoArgsConstructor
+public class ATRIndicatorValue {
+  private LocalDateTime timestamp;
+  private BigDecimal value;
+  private BigDecimal average;
 }

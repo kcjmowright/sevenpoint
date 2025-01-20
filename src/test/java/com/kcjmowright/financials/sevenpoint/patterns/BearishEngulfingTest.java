@@ -23,7 +23,7 @@ public class BearishEngulfingTest {
         parse("4", "foo", "2024-02-15", "433.9200", "434.9800", "431.3300", "434.5100", "38796137", "434.5100"),
         parse("5", "foo", "2024-02-16", "434.8900", "434.9900", "429.8500", "430.5700", "53716475", "430.5700")
     );
-    BigDecimal slope = Trend.findSlope(quotes, quotes.size());
+    BigDecimal slope = Trend.findPriceSlope(quotes, quotes.size());
     assertTrue(slope.compareTo(BigDecimal.ZERO) < 0);
     assertTrue(new BearishEngulfing().analyze(quotes, slope));
   }

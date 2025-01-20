@@ -22,7 +22,7 @@ public class AbandonedBabyTopTest {
         parse("4", "foo", "2024-08-20", "480.3500", "482.9400", "478.5500", "480.2600", "29209340", "480.2600"),
         parse("5", "foo", "2024-08-21", "481.0500", "484.3700", "479.3200", "482.5000", "25658787", "482.5000")
     );
-    BigDecimal slope = Trend.findSlope(quotes, quotes.size());
+    BigDecimal slope = Trend.findPriceSlope(quotes, quotes.size());
     assertTrue(slope.compareTo(BigDecimal.ZERO) > 0);
     assertTrue(new AbandonedBabyTop().analyze(quotes, slope));
   }

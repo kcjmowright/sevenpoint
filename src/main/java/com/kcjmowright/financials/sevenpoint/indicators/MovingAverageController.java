@@ -30,6 +30,6 @@ public class MovingAverageController {
       @RequestParam(name = "period", required = false) Integer period) {
     LocalDateTime end = endInput == null ? LocalDateTime.now() : endInput;
     LocalDateTime start = startInput == null ? end.minusDays(60L) : startInput;
-    return new MovingAverage(quoteService.getQuotesBySymbolAndDateRange(symbol, start, end), isNull(period) ? 20 : period).getValues();
+    return new MovingPriceAverage(quoteService.getQuotesBySymbolAndDateRange(symbol, start, end), isNull(period) ? 20 : period).getValues();
   }
 }

@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class IndicatorValue {
   LocalDateTime timestamp;
   BigDecimal value;
+  BigDecimal stdDev;
 }

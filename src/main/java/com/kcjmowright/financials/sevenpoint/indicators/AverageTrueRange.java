@@ -25,7 +25,7 @@ public class AverageTrueRange {
 
   private final List<Quote> quotes;
 
-  private final List<AverageIndicatorValue> values = new ArrayList<>();
+  private final List<ATRIndicatorValue> values = new ArrayList<>();
 
   private final int period;
 
@@ -62,14 +62,14 @@ public class AverageTrueRange {
       return;
     }
     int len = quotes.size();
-    values.add(new AverageIndicatorValue(quotes.getFirst().getTimestamp(), null, null));
+    values.add(new ATRIndicatorValue(quotes.getFirst().getTimestamp(), null, null));
     for (int i = 1; i < len; i++) {
       final Quote current = quotes.get(i);
       final Quote previous = quotes.get(i - 1);
-      final AverageIndicatorValue aiv = new AverageIndicatorValue(current.getTimestamp(), calculateTrueRange(current, previous), null);
+      final ATRIndicatorValue aiv = new ATRIndicatorValue(current.getTimestamp(), calculateTrueRange(current, previous), null);
       values.add(aiv);
       if (values.size() > period) {
-        aiv.setAverage(average(values.subList(i - period + 1, i + 1).stream().map(AverageIndicatorValue::getValue).toList()));
+        aiv.setAverage(average(values.subList(i - period + 1, i + 1).stream().map(ATRIndicatorValue::getValue).toList()));
       }
     }
   }

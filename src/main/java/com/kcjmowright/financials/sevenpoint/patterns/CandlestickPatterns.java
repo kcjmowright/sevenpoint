@@ -4,17 +4,13 @@ import static java.util.stream.Collectors.toMap;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import com.kcjmowright.financials.math.LinearLeastSquares;
-import com.kcjmowright.financials.math.Point;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 import com.kcjmowright.financials.sevenpoint.indicators.Trend;
 
@@ -92,10 +88,10 @@ public class CandlestickPatterns {
   public Result analyze() {
     final List<Quote> longPeriodSublist = quotes.size() <= longPeriod ? quotes
         : quotes.subList(quotes.size() - longPeriod, quotes.size());
-    final BigDecimal longSlope = Trend.findSlope(longPeriodSublist, longPeriod);
+    final BigDecimal longSlope = Trend.findPriceSlope(longPeriodSublist, longPeriod);
     final List<Quote> shortPeriodSublist = longPeriodSublist.subList(longPeriodSublist.size() - shortPeriod, longPeriodSublist.size());
-    final BigDecimal shortSlope = Trend.findSlope(shortPeriodSublist, shortPeriod);
-    final BigDecimal twoPeriodSlope = Trend.findSlope(shortPeriodSublist, 2);
+    final BigDecimal shortSlope = Trend.findPriceSlope(shortPeriodSublist, shortPeriod);
+    final BigDecimal twoPeriodSlope = Trend.findPriceSlope(shortPeriodSublist, 2);
     final Set<ICandlestickPattern> candleSticks = patterns.stream()
         .collect(toMap(Function.identity(), p -> p.analyze(shortPeriodSublist, shortSlope))).entrySet().stream()
         .filter(Map.Entry::getValue)

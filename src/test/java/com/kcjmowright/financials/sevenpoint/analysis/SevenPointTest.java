@@ -1,8 +1,6 @@
-package com.kcjmowright.financials.sevenpoint.indicators;
+package com.kcjmowright.financials.sevenpoint.analysis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import static com.kcjmowright.financials.util.Strings.emptyOrNull;
 
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -13,6 +11,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -23,21 +23,24 @@ import com.opencsv.CSVReader;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MovingAverageTest {
+@SpringBootTest
+public class SevenPointTest {
 
   static List<Quote> quotes = new ArrayList<>();
-  static List<IndicatorValue> expectedValues = new ArrayList<>();
+
+  @Autowired
+  private SevenPoint sevenPoint;
 
   @BeforeAll
   static void beforeAll() throws Exception {
-    Resource dataResource = new ClassPathResource("indicators/moving-average.csv");
+    Resource dataResource = new ClassPathResource("qqq-2024.csv");
     try (CSVReader csvReader = new CSVReader(new InputStreamReader(dataResource.getInputStream()))) {
       List<String[]> all = csvReader.readAll();
       List<String[]> data = all.subList(1, all.size());
       data.forEach(row -> {
+        LocalDateTime timestamp = Dates.toDate(row[0]);
         var quote = new Quote();
         quote.setSymbol("foo");
-        LocalDateTime timestamp = Dates.toDate(row[0]);
         quote.setTimestamp(timestamp);
         quote.setOpen(new BigDecimal(row[1]));
         quote.setHigh(new BigDecimal(row[2]));
@@ -45,32 +48,14 @@ public class MovingAverageTest {
         quote.setClose(new BigDecimal(row[4]));
         quote.setVolume(Long.parseLong(row[5]));
         quotes.add(quote);
-
-        var iv = new IndicatorValue();
-        iv.setTimestamp(timestamp);
-        if (!emptyOrNull(row[6])) {
-          iv.setValue(new BigDecimal(row[6]));
-        }
-        if (!emptyOrNull(row[7])) {
-          iv.setStdDev(new BigDecimal(row[7]));
-        }
-        expectedValues.add(iv);
       });
     }
     quotes.sort(Comparator.comparing(Quote::getTimestamp));
-    expectedValues.sort(Comparator.comparing(IndicatorValue::getTimestamp));
   }
 
   @Test
   void test() {
-    MovingPriceAverage ma = new MovingPriceAverage(quotes);
-    var actualValues = ma.getValues();
-    for (int i = 0; i < actualValues.size(); i++) {
-      IndicatorValue actualValue = actualValues.get(i);
-      if (log.isDebugEnabled()) {
-        log.debug("{}", actualValue);
-      }
-      assertEquals(expectedValues.get(i), actualValue);
-    }
+    int result = sevenPoint.analyze(quotes);
+    assertEquals(result, -2);
   }
 }

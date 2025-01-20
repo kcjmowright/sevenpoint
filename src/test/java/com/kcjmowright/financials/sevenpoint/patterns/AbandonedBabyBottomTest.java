@@ -23,7 +23,7 @@ public class AbandonedBabyBottomTest {
         parse("4", "foo", "2003-07-31", "31.7900", "32.3300", "31.5200", "31.8000", "85544100", "31.8000"),
         parse("5", "foo", "2003-08-01", "31.6900", "31.7900", "31.3000", "31.4600", "73545400", "31.4600")
     );
-    BigDecimal slope = Trend.findSlope(quotes, quotes.size());
+    BigDecimal slope = Trend.findPriceSlope(quotes, quotes.size());
     assertTrue(slope.compareTo(BigDecimal.ZERO) < 0);
     assertTrue(new AbandonedBabyBottom().analyze(quotes, slope));
   }

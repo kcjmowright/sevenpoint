@@ -24,7 +24,7 @@ public class AverageDirectionalIndex {
 
   public static final int DEFAULT_PERIOD = 14;
   private final List<Quote> quotes;
-  private final List<IndicatorValue> values = new ArrayList<>();
+  private final List<ATRIndicatorValue> values = new ArrayList<>();
   private final int period;
 
   public AverageDirectionalIndex(List<Quote> quotes) {
@@ -39,7 +39,7 @@ public class AverageDirectionalIndex {
 
   void calculate() {
     int len = quotes.size();
-    values.add(new IndicatorValue(quotes.getFirst().getTimestamp(), null));
+    values.add(new ATRIndicatorValue(quotes.getFirst().getTimestamp(), null, null));
     for (int idx = 1; idx < len; idx++) {
       final Quote current = quotes.get(idx);
       final Quote previous = quotes.get(idx - 1);

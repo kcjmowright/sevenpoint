@@ -6,7 +6,6 @@ import static com.kcjmowright.financials.util.Strings.emptyOrNull;
 
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import com.kcjmowright.financials.config.DateTimeConfig;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 import com.kcjmowright.financials.util.Dates;
 import com.opencsv.CSVReader;
@@ -28,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AverageTrueRangeTest {
 
   static List<Quote> quotes = new ArrayList<>();
-  static List<AverageIndicatorValue> expectedValues = new ArrayList<>();
+  static List<ATRIndicatorValue> expectedValues = new ArrayList<>();
 
   @BeforeAll
   static void beforeAll() throws Exception {
@@ -48,7 +46,7 @@ public class AverageTrueRangeTest {
         quote.setVolume(Long.parseLong(row[5]));
         quotes.add(quote);
 
-        var aiv = new AverageIndicatorValue();
+        var aiv = new ATRIndicatorValue();
         aiv.setTimestamp(timestamp);
         if (!emptyOrNull(row[6])) {
           aiv.setValue(new BigDecimal(row[6]));
@@ -60,7 +58,7 @@ public class AverageTrueRangeTest {
       });
     }
     quotes.sort(Comparator.comparing(Quote::getTimestamp));
-    expectedValues.sort(Comparator.comparing(IndicatorValue::getTimestamp));
+    expectedValues.sort(Comparator.comparing(ATRIndicatorValue::getTimestamp));
   }
 
   @Test
@@ -68,7 +66,7 @@ public class AverageTrueRangeTest {
     AverageTrueRange averageTrueRange = new AverageTrueRange(quotes);
     var actualValues = averageTrueRange.getValues();
     for (int i = 0; i < actualValues.size(); i++) {
-      AverageIndicatorValue actualValue = actualValues.get(i);
+      ATRIndicatorValue actualValue = actualValues.get(i);
       if (log.isDebugEnabled()) {
         log.debug("{}\t,{},{}", actualValue.getTimestamp(), actualValue.getValue(), actualValue.getAverage());
       }

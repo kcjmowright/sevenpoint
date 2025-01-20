@@ -14,7 +14,7 @@ Up or down compared to the trend.
 
 ### Moving Average Divergence
 
-A wide diverage from the 20-day simple moving average.
+A wide divergence from the 20-day simple moving average.
 
 ### Gaps
 

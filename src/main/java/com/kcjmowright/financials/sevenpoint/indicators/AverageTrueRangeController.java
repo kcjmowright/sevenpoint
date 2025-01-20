@@ -23,7 +23,7 @@ public class AverageTrueRangeController {
   private final QuoteService quoteService;
 
   @GetMapping("/{symbol}")
-  public List<AverageIndicatorValue> getAverageTrueRange(@PathVariable(name = "symbol") String symbol, @DateTimeFormat(iso =
+  public List<ATRIndicatorValue> getAverageTrueRange(@PathVariable(name = "symbol") String symbol, @DateTimeFormat(iso =
       DateTimeFormat.ISO.DATE_TIME) @RequestParam(name = "start", required = false) LocalDateTime startInput, @DateTimeFormat(iso =
       DateTimeFormat.ISO.DATE_TIME) @RequestParam(name = "end", required = false) LocalDateTime endInput,
       @RequestParam(name = "period", required = false) Integer period) {

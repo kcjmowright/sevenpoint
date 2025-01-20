@@ -13,6 +13,7 @@ import com.kcjmowright.financials.sevenpoint.company.Quote;
 import lombok.Getter;
 
 /**
+ * An unbounded oscillator
  * <a href="https://www.investopedia.com/terms/c/commoditychannelindex.asp">Commodity Channel Index</a>
  */
 @Getter
@@ -61,7 +62,7 @@ public class CommodityChannelIndex {
     List<BigDecimal> absDeviations = typicalPrices.stream().map(tp -> tp.subtract(movingAverage, MATH_CONTEXT).abs()).toList();
     BigDecimal meanDeviation = average(absDeviations);
     BigDecimal cci = typicalPrices.getLast().subtract(movingAverage, MATH_CONTEXT).divide(coefficient.multiply(meanDeviation, MATH_CONTEXT), MATH_CONTEXT);
-    IndicatorValue value = new IndicatorValue(slice.getLast().getTimestamp(), cci);
+    IndicatorValue value = new IndicatorValue(slice.getLast().getTimestamp(), cci, null);
     values.add(value);
   }
 

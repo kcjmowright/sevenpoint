@@ -23,7 +23,7 @@ public class BearishMarubozoTest {
         parse("1", "foo", "2024-02-09", "433.9400", "437.8450", "433.1401" ,"437.0500", "36943905", "437.0500"),
         parse("1", "foo", "2024-02-12", "447.9400", "447.9400", "431.6500" ,"431.6500", "33203305", "431.6500"));
 
-    BigDecimal slope = Trend.findSlope(quotes, quotes.size());
+    BigDecimal slope = Trend.findPriceSlope(quotes, quotes.size());
     assertTrue(BigDecimal.ZERO.compareTo(slope) < 0, "Expected zero to be less than slope");
     assertTrue(new BearishMarubozo().analyze(quotes, slope));
   }
