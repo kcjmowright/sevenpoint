@@ -2,16 +2,13 @@ package com.kcjmowright.financials.sevenpoint.indicators;
 
 import static java.util.Objects.requireNonNull;
 
-import static com.kcjmowright.financials.math.BigDecimalAverage.average;
+import static com.kcjmowright.financials.sevenpoint.math.BigDecimalAverage.average;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
-
-import lombok.Getter;
 
 public class MovingPriceAverage extends AbstractMovingAverage {
 

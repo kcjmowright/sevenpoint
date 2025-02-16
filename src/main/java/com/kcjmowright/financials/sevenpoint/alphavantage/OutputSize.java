@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.alphavantage;
+package com.kcjmowright.financials.sevenpoint.alphavantage;
 
 import lombok.Getter;
 

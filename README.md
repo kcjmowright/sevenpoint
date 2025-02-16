@@ -52,8 +52,6 @@ createdb --username postgres -E UTF-8 -T template0 --no-password sevenpoint
 
 `ALPHAVANTAGE_KEY` - Alphavantage API key.  Create a key by visiting https://www.alphavantage.co/support/#api-key
 
-
-
 ## Reference
 
 ### JPA/Spring Data
@@ -67,12 +65,59 @@ createdb --username postgres -E UTF-8 -T template0 --no-password sevenpoint
 * https://docs.spring.io/spring-framework/docs/current/javadoc-api/index.html
 * https://docs.spring.io/spring-framework/reference/
 
+### Spring Batch
+
+* https://www.baeldung.com/spring-boot-spring-batch
+* https://github.com/eugenp/tutorials
+
 ## Market Data APIs
 
-* https://www.alphavantage.co/documentation/  - Free API, just have to apply for an API key.  Sign-up at https://www.alphavantage.co/support/#api-key
+### Alphaadvantage
+
+https://www.alphavantage.co/documentation/  - Free API, just have to apply for an API key.  Sign-up at https://www.alphavantage.co/support/#api-key
+
+### Schwab
+
+#### Schwab Developer References
+
 * https://developer.schwab.com/
 * https://sws-gateway.schwab.com/ui/host/ - Charles Schwab investor API.
+* https://developer.schwab.com/products/trader-api--individual/details/documentation/Retail%20Trader%20API%20Production
+
+
+#### Schwab API Swagger Codegen Commands
+
+```shell
+java -jar swagger-codegen-cli-3.0.67.jar generate \
+-i market-data-openapi-schema.json \
+-l java \
+--api-package com.kcjmowright.schwab.marketdata.api \
+--model-package com.kcjmowright.schwab.marketdata.model \
+--invoker-package com.kcjmowright.schwab.marketdata.invoker \
+--group-id com.kcjmowright.schwab \
+--artifact-id schwab-marketdata-client \
+--artifact-version 0.0.1 \
+--library resttemplate \
+-o schwab-marketdata-client \
+-c config.json
+```
+
+```shell
+java -jar swagger-codegen-cli-3.0.67.jar generate \
+-i trader-openapi-schema.json \
+-l java \
+--api-package com.kcjmowright.schwab.trader.api \
+--model-package com.kcjmowright.schwab.trader.model \
+--invoker-package com.kcjmowright.schwab.trader.invoker \
+--group-id com.kcjmowright.schwab \
+--artifact-id schwab-trader-client \
+--artifact-version 0.0.1 \
+--library resttemplate \
+-o schwab-trader-client \
+-c config.json
+```
 
 ## Market Data
 
 * https://www.forexfactory.com/ - for professional traders participating in the foreign exchange markets.
+

@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.config;
+package com.kcjmowright.financials.sevenpoint.config;
 
 import java.time.format.DateTimeFormatter;
 

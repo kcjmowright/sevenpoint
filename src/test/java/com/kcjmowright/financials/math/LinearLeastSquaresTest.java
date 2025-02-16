@@ -4,12 +4,14 @@ import static java.math.BigDecimal.valueOf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static com.kcjmowright.financials.math.LinearLeastSquares.linearLeastSquares;
+import static com.kcjmowright.financials.sevenpoint.math.LinearLeastSquares.linearLeastSquares;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import com.kcjmowright.financials.sevenpoint.math.Point;
 
 public class LinearLeastSquaresTest {
 

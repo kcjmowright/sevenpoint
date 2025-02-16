@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.math;
+package com.kcjmowright.financials.sevenpoint.math;
 
 import static java.math.BigDecimal.valueOf;
 

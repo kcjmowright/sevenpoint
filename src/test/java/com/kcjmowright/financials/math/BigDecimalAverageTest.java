@@ -3,7 +3,7 @@ package com.kcjmowright.financials.math;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static com.kcjmowright.financials.math.BigDecimalAverage.average;
+import static com.kcjmowright.financials.sevenpoint.math.BigDecimalAverage.average;
 
 import java.math.BigDecimal;
 import java.util.stream.DoubleStream;

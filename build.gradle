@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.flywaydb.flyway' version '6.4.3'
 }
 
 group = 'com.kcjmowright.financials'
@@ -13,6 +14,12 @@ java {
 	}
 }
 
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/sevenpoint'
+	user = 'postgres'
+	locations = ['classpath:db/migration']
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -22,6 +29,7 @@ configurations {
 repositories {
 	mavenCentral()
 	maven { url 'https://repo.spring.io/milestone' }
+	mavenLocal()
 }
 
 // ext {
@@ -29,16 +37,26 @@ repositories {
 // }
 
 dependencies {
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	// implementation 'org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation group: 'com.opencsv', name: 'opencsv', version: '5.9'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-database-postgresql'
-	// implementation 'org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter'
-	implementation group: 'com.opencsv', name: 'opencsv', version: '5.9'
-
+	implementation('com.kcjmowright.schwab:schwab-marketdata-client:0.0.1') {
+		exclude group: 'com.fasterxml.jackson.core'
+		exclude group: 'com.fasterxml.jackson.jaxrs'
+		exclude group: 'org.springframework'
+	}
+	implementation('com.kcjmowright.schwab:schwab-trader-client:0.0.1') {
+		exclude group: 'com.fasterxml.jackson.core'
+		exclude group: 'com.fasterxml.jackson.jaxrs'
+		exclude group: 'org.springframework'
+	}
 	compileOnly 'org.projectlombok:lombok'
 	testCompileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -55,6 +73,10 @@ dependencies {
 // 		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
 // 	}
 // }
+
+bootJar {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
 
 tasks.named('test') {
 	useJUnitPlatform()

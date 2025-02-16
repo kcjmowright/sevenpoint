@@ -1,6 +1,6 @@
 package com.kcjmowright.financials.plot;
 
-import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
+import static com.kcjmowright.financials.sevenpoint.config.MathConfig.MATH_CONTEXT;
 
 import java.awt.*;
 
@@ -9,8 +9,6 @@ import javax.swing.*;
 import java.awt.geom.*;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -18,9 +16,8 @@ import java.util.List;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import com.kcjmowright.financials.config.DateTimeConfig;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
-import com.kcjmowright.financials.util.Dates;
+import com.kcjmowright.financials.sevenpoint.util.Dates;
 import com.opencsv.CSVReader;
 
 import lombok.SneakyThrows;

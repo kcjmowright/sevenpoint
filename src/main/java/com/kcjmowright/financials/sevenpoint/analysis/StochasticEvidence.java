@@ -1,13 +1,11 @@
 package com.kcjmowright.financials.sevenpoint.analysis;
 
-import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import com.kcjmowright.financials.math.LinearLeastSquares;
-import com.kcjmowright.financials.math.Point;
+import com.kcjmowright.financials.sevenpoint.math.LinearLeastSquares;
+import com.kcjmowright.financials.sevenpoint.math.Point;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 import com.kcjmowright.financials.sevenpoint.indicators.StochasticOscillator;
 import com.kcjmowright.financials.sevenpoint.indicators.StochasticValue;

@@ -1,11 +1,11 @@
-package com.kcjmowright.financials.math;
+package com.kcjmowright.financials.sevenpoint.math;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
 
-import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
-import static com.kcjmowright.financials.math.BigDecimalAverage.average;
-import static com.kcjmowright.financials.math.BigDecimalSum.sum;
-import static com.kcjmowright.financials.math.BigDecimalSum.sumOfSquares;
+import static com.kcjmowright.financials.sevenpoint.config.MathConfig.MATH_CONTEXT;
+import static com.kcjmowright.financials.sevenpoint.math.BigDecimalAverage.average;
+import static com.kcjmowright.financials.sevenpoint.math.BigDecimalSum.sum;
+import static com.kcjmowright.financials.sevenpoint.math.BigDecimalSum.sumOfSquares;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.kcjmowright.financials.sevenpoint.company;
 
 import java.math.BigDecimal;
 
-import com.kcjmowright.financials.util.Dates;
+import com.kcjmowright.financials.sevenpoint.util.Dates;
 
 public class QuoteParser {
 

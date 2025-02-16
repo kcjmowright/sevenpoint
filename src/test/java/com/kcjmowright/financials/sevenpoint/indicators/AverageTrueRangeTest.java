@@ -2,7 +2,7 @@ package com.kcjmowright.financials.sevenpoint.indicators;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static com.kcjmowright.financials.util.Strings.emptyOrNull;
+import static com.kcjmowright.financials.sevenpoint.util.Strings.emptyOrNull;
 
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
-import com.kcjmowright.financials.util.Dates;
+import com.kcjmowright.financials.sevenpoint.util.Dates;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;

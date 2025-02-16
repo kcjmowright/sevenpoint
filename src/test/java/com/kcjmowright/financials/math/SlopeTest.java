@@ -2,11 +2,13 @@ package com.kcjmowright.financials.math;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static com.kcjmowright.financials.math.Slope.slope;
+import static com.kcjmowright.financials.sevenpoint.math.Slope.slope;
 
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
+
+import com.kcjmowright.financials.sevenpoint.math.Point;
 
 public class SlopeTest {
 

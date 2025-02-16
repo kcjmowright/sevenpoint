@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import com.kcjmowright.financials.config.DateTimeConfig;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
-import com.kcjmowright.financials.util.Dates;
-import com.kcjmowright.financials.util.Strings;
+import com.kcjmowright.financials.sevenpoint.util.Dates;
+import com.kcjmowright.financials.sevenpoint.util.Strings;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;

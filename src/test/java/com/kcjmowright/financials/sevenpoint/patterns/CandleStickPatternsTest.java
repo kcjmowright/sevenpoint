@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static com.kcjmowright.financials.sevenpoint.company.QuoteParser.parse;
 
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
-import com.kcjmowright.financials.util.Dates;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;

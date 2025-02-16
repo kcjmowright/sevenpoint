@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import com.kcjmowright.financials.math.LinearLeastSquares;
-import com.kcjmowright.financials.math.Point;
+import com.kcjmowright.financials.sevenpoint.math.LinearLeastSquares;
+import com.kcjmowright.financials.sevenpoint.math.Point;
 import com.kcjmowright.financials.sevenpoint.company.Quote;
 
 public class Trend {

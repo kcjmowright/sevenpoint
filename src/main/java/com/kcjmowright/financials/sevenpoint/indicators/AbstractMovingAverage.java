@@ -2,8 +2,8 @@ package com.kcjmowright.financials.sevenpoint.indicators;
 
 import static java.util.Objects.requireNonNull;
 
-import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
-import static com.kcjmowright.financials.math.BigDecimalAverage.average;
+import static com.kcjmowright.financials.sevenpoint.config.MathConfig.MATH_CONTEXT;
+import static com.kcjmowright.financials.sevenpoint.math.BigDecimalAverage.average;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.kcjmowright.financials.sevenpoint.math.BigDecimalSum;
+
 public class BigDecimalSumTest {
 
   @Test

@@ -17,7 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.kcjmowright.financials.sevenpoint.company.Quote;
-import com.kcjmowright.financials.util.Dates;
+import com.kcjmowright.financials.sevenpoint.util.Dates;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;

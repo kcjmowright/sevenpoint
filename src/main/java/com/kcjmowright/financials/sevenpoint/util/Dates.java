@@ -1,9 +1,9 @@
-package com.kcjmowright.financials.util;
+package com.kcjmowright.financials.sevenpoint.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.kcjmowright.financials.config.DateTimeConfig;
+import com.kcjmowright.financials.sevenpoint.config.DateTimeConfig;
 
 public class Dates {
 

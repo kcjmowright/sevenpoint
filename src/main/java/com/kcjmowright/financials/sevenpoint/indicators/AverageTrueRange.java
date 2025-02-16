@@ -1,6 +1,6 @@
 package com.kcjmowright.financials.sevenpoint.indicators;
 
-import static com.kcjmowright.financials.math.BigDecimalAverage.average;
+import static com.kcjmowright.financials.sevenpoint.math.BigDecimalAverage.average;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

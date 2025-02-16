@@ -1,4 +1,4 @@
-package com.kcjmowright.financials.alphavantage;
+package com.kcjmowright.financials.sevenpoint.alphavantage;
 
 import java.util.HashMap;
 import java.util.Map;

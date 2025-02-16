@@ -1,9 +1,9 @@
-package com.kcjmowright.financials.math;
+package com.kcjmowright.financials.sevenpoint.math;
 
 import static java.math.BigDecimal.valueOf;
 import static java.util.Objects.isNull;
 
-import static com.kcjmowright.financials.config.MathConfig.MATH_CONTEXT;
+import static com.kcjmowright.financials.sevenpoint.config.MathConfig.MATH_CONTEXT;
 
 import java.math.BigDecimal;
 

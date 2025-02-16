@@ -10,9 +10,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.kcjmowright.financials.alphavantage.AlphavantageRestClient;
-import com.kcjmowright.financials.alphavantage.DataType;
-import com.kcjmowright.financials.alphavantage.OutputSize;
+import com.kcjmowright.financials.sevenpoint.alphavantage.AlphavantageRestClient;
+import com.kcjmowright.financials.sevenpoint.alphavantage.DataType;
+import com.kcjmowright.financials.sevenpoint.alphavantage.OutputSize;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
